@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,6 +53,8 @@ namespace GarrysModWorkshopUtility
         public static bool enableCommandPause = false;
 
         bool ignoreNotices = false;
+        bool isProgramRunningGMPublish = false;
+        string[] lines;
 
         String[] addonTypes = { "ServerContent", "gamemode", "map", "weapon", "vehicle", "npc", "tool", "effects", "model" };
         String[] addonTags = { "fun", "roleplay", "scenic", "movie", "realism", "cartoon", "water", "comic", "build" };
@@ -72,6 +74,7 @@ namespace GarrysModWorkshopUtility
             else
             {
                 timeToStartTask.Interval = GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime;
+                lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime * 0.001) + " seconds";
             }
             if (chkAutoRun.Checked)
             {
@@ -84,6 +87,7 @@ namespace GarrysModWorkshopUtility
             if (formattedTime == 0)
             {
                 formattedTime = 60;
+                lblScriptDelete.Text = "Scripts Delete: " + formattedTime + " Seconds Upon Run";
             }
             else
             {
@@ -845,9 +849,74 @@ namespace GarrysModWorkshopUtility
             this.Size = new Size(1286, 937);
         }
 
+
+        private void btnClearConsole_Click(object sender, EventArgs e)
+        {
+            conControl.ClearOutput();
+        }
+
+        private void btnClearAddons_Click(object sender, EventArgs e)
+        {
+            lstAddons.Items.Clear();
+        }
+
+
+        private void btnLoadAddonList_Click(object sender, EventArgs e)
+        {
+            if (isProgramRunningGMPublish == false)
+            {
+                MessageBox.Show("You cannot run this task if your bin folder is looking at GMad.exe!", "Error");
+            }
+            else if (txtGMadFolderLocation.Equals(""))
+            {
+                MessageBox.Show("Please enter in the path leading to GMPublish.exe!", "Error");
+            }
+            else
+            {
+                try
+                {
+                    lstAddons.Items.Clear();
+                    StreamWriter addonWriter = new StreamWriter("addon_obtainer.bat");
+                    addonWriter.WriteLine("\"" + txtGMadFolderLocation.Text + "\"" + " list > " + txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt" + "\"");
+                    addonWriter.Close();
+                    System.Diagnostics.Process.Start("addon_obtainer.bat");
+                    addonWriter = null;
+                    tmrFillAddons.Start();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Please enter in the path leading to GMPublish.exe!", "Error");
+                }
+                //conControl.StartProcess("\"" + txtGMadFolderLocation.Text + "\"" + " list > " + txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\"))  + "\\Output.txt" + "\"", "");
+            }
+        }
+
+
+        private void btnUseAddonID_Click(object sender, EventArgs e)
+        {
+            if (lstAddons.Items.Count == 0)
+            {
+                MessageBox.Show("You cannot use 0 ID's!", "Error");
+            }
+            else if (lstAddons.SelectedIndex < 0)
+            {
+                MessageBox.Show("You cannot select an unknown index!", "Error");
+            }
+            else
+            {
+                ArrayList addonList = new ArrayList();
+                foreach (object item in lstAddons.Items)
+                {
+                    addonList.Add(item);
+                }
+                txtAddonIDNumber.Text = addonList[lstAddons.SelectedIndex].ToString().Substring(0, 11);
+            }
+        }
+
         private void radCreateGma_CheckedChanged(object sender, EventArgs e)
         {
             startProgramEffects();
+            isProgramRunningGMPublish = false;
         }
 
         private void radPublishAddon_CheckedChanged(object sender, EventArgs e)
@@ -866,6 +935,7 @@ namespace GarrysModWorkshopUtility
             disableJSONFunction();
             disableGMAOutputFunction();
             disableAddonFolderFunction();
+            isProgramRunningGMPublish = true;
         }
 
         private void radUpdateAddon_CheckedChanged(object sender, EventArgs e)
@@ -885,6 +955,7 @@ namespace GarrysModWorkshopUtility
             disableGMAOutputFunction();
             disableJSONFunction();
             disableAddonFolderFunction();
+            isProgramRunningGMPublish = true;
         }
 
         private void radUpdateIcon_CheckedChanged(object sender, EventArgs e)
@@ -903,6 +974,7 @@ namespace GarrysModWorkshopUtility
             disableAddonFolderFunction();
             disableGMAFunction();
             disableJSONFunction();
+            isProgramRunningGMPublish = true;
         }
 
         private void radCreateJSon_CheckedChanged(object sender, EventArgs e)
@@ -921,6 +993,7 @@ namespace GarrysModWorkshopUtility
             disableGMAFunction();
             disableBinFunction();
             enableJSONFunction();
+            isProgramRunningGMPublish = false;
         }
 
         private void radExtractGMA_CheckedChanged(object sender, EventArgs e)
@@ -940,6 +1013,7 @@ namespace GarrysModWorkshopUtility
             enableAddonFolderFunction();
             enableBinFunction();
             enableGMAFunction();
+            isProgramRunningGMPublish = false;
         }
 
         private void checkForPublishOrCreateExe()
@@ -1455,6 +1529,30 @@ namespace GarrysModWorkshopUtility
             }
         }
 
+
+        private void tmrFillAddons_Tick(object sender, EventArgs e)
+        {
+            File.Delete("addon_obtainer.bat");
+            lines = System.IO.File.ReadAllLines(txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt");
+            int index = 0;
+            foreach (String line in lines)
+            {
+                if (index < 4)
+                {
+
+                }
+                else
+                {
+                    lstAddons.Items.Add(line.Trim());
+                }
+                index++;
+            }
+            lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
+            lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
+            File.Delete(txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt");
+            tmrFillAddons.Stop();
+        }
+
         private void chkIgnoreNotices_CheckedChanged(object sender, EventArgs e)
         {
             if (chkIgnoreNotices.Checked)
@@ -1515,6 +1613,9 @@ namespace GarrysModWorkshopUtility
             {
                 this.BackColor = System.Drawing.Color.DimGray;
                 lstQueue.BackColor = System.Drawing.Color.DimGray;
+                lstQueue.ForeColor = SystemColors.Window;
+                lstAddons.BackColor = System.Drawing.Color.DimGray;
+                lstAddons.ForeColor = SystemColors.Window;
                 GarrysModWorkshopUtil.Properties.Settings.Default.EnableDarkMode = true;
             }
 
@@ -1522,13 +1623,11 @@ namespace GarrysModWorkshopUtility
             {
                 this.BackColor = SystemColors.Control;
                 lstQueue.BackColor = SystemColors.Window;
+                lstAddons.BackColor = SystemColors.Control;
+                lstAddons.ForeColor = System.Drawing.Color.Black;
+                lstQueue.ForeColor = System.Drawing.Color.Black;
                 GarrysModWorkshopUtil.Properties.Settings.Default.EnableDarkMode = false;
             }
         }
-
-        private void btnClearConsole_Click(object sender, EventArgs e)
-        {
-            conControl.ClearOutput();
-        }  
     }
 }
