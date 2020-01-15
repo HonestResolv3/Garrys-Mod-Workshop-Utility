@@ -1,4 +1,7 @@
 # Garrys Mod Workshop Utility
+
+[![Downloads](https://img.shields.io/badge/downloads-10%2B-brightgreen.svg)](https://github.com/DefyTheRush/Garrys-Mod-Workshop-Utility/releases)
+
 A C# based program to make publishing, extracting, and updating easier in Garry's Mod
 
 ![The_Program](https://i.imgur.com/ycgBcbD.jpg)
