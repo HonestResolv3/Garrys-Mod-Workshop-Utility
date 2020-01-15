@@ -6,8 +6,6 @@ A C# based program to make publishing, extracting, and updating easier in Garry'
 
 ![The_Program](https://i.imgur.com/ycgBcbD.jpg)
 
-Note: You can download the program [here](https://www.dropbox.com/s/ev8d2ejcnqhgn0y/GarrysModWorkshopUtil.exe?dl=1)
-
 Features:
 - Output Console
 - Task + Queue System
