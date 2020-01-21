@@ -79,24 +79,37 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.chkDarkMode = new System.Windows.Forms.CheckBox();
             this.lblCommandPrompts = new System.Windows.Forms.Label();
+            this.lblListOfAddons = new System.Windows.Forms.Label();
+            this.lstAddons = new System.Windows.Forms.ListBox();
+            this.tmrFillAddons = new System.Windows.Forms.Timer(this.components);
+            this.btnLoadAddonList = new System.Windows.Forms.Button();
+            this.btnClearAddons = new System.Windows.Forms.Button();
+            this.lblListCommands = new System.Windows.Forms.Label();
+            this.lblListCommandTop = new System.Windows.Forms.Label();
+            this.btnUseAddonID = new System.Windows.Forms.Button();
+            this.btnSearchAddon = new System.Windows.Forms.Button();
+            this.lblSearchAddon = new System.Windows.Forms.Label();
+            this.txtSearchAddon = new System.Windows.Forms.TextBox();
+            this.lblLoadingProgress = new System.Windows.Forms.Label();
+            this.btnClearSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pboxIconPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(47, 2);
+            this.lblTitle.Location = new System.Drawing.Point(109, 2);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblTitle.Size = new System.Drawing.Size(376, 43);
+            this.lblTitle.Size = new System.Drawing.Size(267, 43);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Garry\'s Mod Workshop Utility";
+            this.lblTitle.Text = "Program Parameters";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radPublishAddon
             // 
             this.radPublishAddon.AutoSize = true;
-            this.radPublishAddon.Location = new System.Drawing.Point(164, 315);
+            this.radPublishAddon.Location = new System.Drawing.Point(165, 315);
             this.radPublishAddon.Name = "radPublishAddon";
             this.radPublishAddon.Size = new System.Drawing.Size(101, 17);
             this.radPublishAddon.TabIndex = 19;
@@ -107,7 +120,7 @@
             // radUpdateAddon
             // 
             this.radUpdateAddon.AutoSize = true;
-            this.radUpdateAddon.Location = new System.Drawing.Point(43, 338);
+            this.radUpdateAddon.Location = new System.Drawing.Point(44, 338);
             this.radUpdateAddon.Name = "radUpdateAddon";
             this.radUpdateAddon.Size = new System.Drawing.Size(101, 17);
             this.radUpdateAddon.TabIndex = 20;
@@ -119,7 +132,7 @@
             // 
             this.radCreateGma.AutoSize = true;
             this.radCreateGma.Checked = true;
-            this.radCreateGma.Location = new System.Drawing.Point(43, 291);
+            this.radCreateGma.Location = new System.Drawing.Point(44, 291);
             this.radCreateGma.Name = "radCreateGma";
             this.radCreateGma.Size = new System.Drawing.Size(89, 17);
             this.radCreateGma.TabIndex = 16;
@@ -131,7 +144,7 @@
             // radUpdateIcon
             // 
             this.radUpdateIcon.AutoSize = true;
-            this.radUpdateIcon.Location = new System.Drawing.Point(164, 338);
+            this.radUpdateIcon.Location = new System.Drawing.Point(165, 338);
             this.radUpdateIcon.Name = "radUpdateIcon";
             this.radUpdateIcon.Size = new System.Drawing.Size(88, 17);
             this.radUpdateIcon.TabIndex = 21;
@@ -142,7 +155,7 @@
             // lblUtilityOptions
             // 
             this.lblUtilityOptions.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUtilityOptions.Location = new System.Drawing.Point(47, 246);
+            this.lblUtilityOptions.Location = new System.Drawing.Point(48, 246);
             this.lblUtilityOptions.Name = "lblUtilityOptions";
             this.lblUtilityOptions.Size = new System.Drawing.Size(209, 43);
             this.lblUtilityOptions.TabIndex = 15;
@@ -152,7 +165,7 @@
             // btnAddToQueue
             // 
             this.btnAddToQueue.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddToQueue.Location = new System.Drawing.Point(288, 294);
+            this.btnAddToQueue.Location = new System.Drawing.Point(289, 294);
             this.btnAddToQueue.Name = "btnAddToQueue";
             this.btnAddToQueue.Size = new System.Drawing.Size(149, 26);
             this.btnAddToQueue.TabIndex = 29;
@@ -236,7 +249,7 @@
             // btnClearTextBoxes
             // 
             this.btnClearTextBoxes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearTextBoxes.Location = new System.Drawing.Point(288, 355);
+            this.btnClearTextBoxes.Location = new System.Drawing.Point(289, 353);
             this.btnClearTextBoxes.Name = "btnClearTextBoxes";
             this.btnClearTextBoxes.Size = new System.Drawing.Size(149, 26);
             this.btnClearTextBoxes.TabIndex = 33;
@@ -247,7 +260,7 @@
             // btnHelpPage
             // 
             this.btnHelpPage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpPage.Location = new System.Drawing.Point(442, 417);
+            this.btnHelpPage.Location = new System.Drawing.Point(443, 415);
             this.btnHelpPage.Name = "btnHelpPage";
             this.btnHelpPage.Size = new System.Drawing.Size(148, 26);
             this.btnHelpPage.TabIndex = 38;
@@ -276,7 +289,7 @@
             // radCreateJSon
             // 
             this.radCreateJSon.AutoSize = true;
-            this.radCreateJSon.Location = new System.Drawing.Point(164, 291);
+            this.radCreateJSon.Location = new System.Drawing.Point(165, 291);
             this.radCreateJSon.Name = "radCreateJSon";
             this.radCreateJSon.Size = new System.Drawing.Size(91, 17);
             this.radCreateJSon.TabIndex = 17;
@@ -305,7 +318,7 @@
             // lblIconPreview
             // 
             this.lblIconPreview.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIconPreview.Location = new System.Drawing.Point(440, 2);
+            this.lblIconPreview.Location = new System.Drawing.Point(439, 2);
             this.lblIconPreview.Name = "lblIconPreview";
             this.lblIconPreview.Size = new System.Drawing.Size(209, 43);
             this.lblIconPreview.TabIndex = 25;
@@ -315,7 +328,7 @@
             // radExtractGMA
             // 
             this.radExtractGMA.AutoSize = true;
-            this.radExtractGMA.Location = new System.Drawing.Point(43, 315);
+            this.radExtractGMA.Location = new System.Drawing.Point(44, 315);
             this.radExtractGMA.Name = "radExtractGMA";
             this.radExtractGMA.Size = new System.Drawing.Size(90, 17);
             this.radExtractGMA.TabIndex = 18;
@@ -336,15 +349,16 @@
             // lstQueue
             // 
             this.lstQueue.FormattingEnabled = true;
+            this.lstQueue.HorizontalScrollbar = true;
             this.lstQueue.Location = new System.Drawing.Point(638, 48);
             this.lstQueue.Name = "lstQueue";
-            this.lstQueue.Size = new System.Drawing.Size(612, 420);
+            this.lstQueue.Size = new System.Drawing.Size(612, 199);
             this.lstQueue.TabIndex = 42;
             // 
             // btnRemoveFromQueue
             // 
             this.btnRemoveFromQueue.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFromQueue.Location = new System.Drawing.Point(442, 294);
+            this.btnRemoveFromQueue.Location = new System.Drawing.Point(443, 294);
             this.btnRemoveFromQueue.Name = "btnRemoveFromQueue";
             this.btnRemoveFromQueue.Size = new System.Drawing.Size(148, 26);
             this.btnRemoveFromQueue.TabIndex = 30;
@@ -355,7 +369,7 @@
             // btnRunTask
             // 
             this.btnRunTask.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRunTask.Location = new System.Drawing.Point(443, 385);
+            this.btnRunTask.Location = new System.Drawing.Point(443, 384);
             this.btnRunTask.Name = "btnRunTask";
             this.btnRunTask.Size = new System.Drawing.Size(148, 26);
             this.btnRunTask.TabIndex = 36;
@@ -366,7 +380,7 @@
             // btnAbout
             // 
             this.btnAbout.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbout.Location = new System.Drawing.Point(289, 417);
+            this.btnAbout.Location = new System.Drawing.Point(290, 415);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(148, 26);
             this.btnAbout.TabIndex = 37;
@@ -382,7 +396,7 @@
             // chkAutoRun
             // 
             this.chkAutoRun.AutoSize = true;
-            this.chkAutoRun.Location = new System.Drawing.Point(75, 385);
+            this.chkAutoRun.Location = new System.Drawing.Point(76, 385);
             this.chkAutoRun.Name = "chkAutoRun";
             this.chkAutoRun.Size = new System.Drawing.Size(111, 17);
             this.chkAutoRun.TabIndex = 23;
@@ -393,7 +407,7 @@
             // btnModifyTimer
             // 
             this.btnModifyTimer.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModifyTimer.Location = new System.Drawing.Point(288, 324);
+            this.btnModifyTimer.Location = new System.Drawing.Point(442, 323);
             this.btnModifyTimer.Name = "btnModifyTimer";
             this.btnModifyTimer.Size = new System.Drawing.Size(149, 26);
             this.btnModifyTimer.TabIndex = 31;
@@ -404,7 +418,7 @@
             // chkIgnoreNotices
             // 
             this.chkIgnoreNotices.AutoSize = true;
-            this.chkIgnoreNotices.Location = new System.Drawing.Point(75, 364);
+            this.chkIgnoreNotices.Location = new System.Drawing.Point(76, 364);
             this.chkIgnoreNotices.Name = "chkIgnoreNotices";
             this.chkIgnoreNotices.Size = new System.Drawing.Size(152, 17);
             this.chkIgnoreNotices.TabIndex = 22;
@@ -425,7 +439,7 @@
             // chkToggleResizing
             // 
             this.chkToggleResizing.AutoSize = true;
-            this.chkToggleResizing.Location = new System.Drawing.Point(75, 470);
+            this.chkToggleResizing.Location = new System.Drawing.Point(76, 470);
             this.chkToggleResizing.Name = "chkToggleResizing";
             this.chkToggleResizing.Size = new System.Drawing.Size(181, 17);
             this.chkToggleResizing.TabIndex = 27;
@@ -436,7 +450,7 @@
             // btnResetResizePosition
             // 
             this.btnResetResizePosition.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetResizePosition.Location = new System.Drawing.Point(289, 385);
+            this.btnResetResizePosition.Location = new System.Drawing.Point(290, 384);
             this.btnResetResizePosition.Name = "btnResetResizePosition";
             this.btnResetResizePosition.Size = new System.Drawing.Size(148, 26);
             this.btnResetResizePosition.TabIndex = 35;
@@ -465,7 +479,7 @@
             // chkEnableAutoDeleteJSON
             // 
             this.chkEnableAutoDeleteJSON.AutoSize = true;
-            this.chkEnableAutoDeleteJSON.Location = new System.Drawing.Point(75, 427);
+            this.chkEnableAutoDeleteJSON.Location = new System.Drawing.Point(76, 427);
             this.chkEnableAutoDeleteJSON.Name = "chkEnableAutoDeleteJSON";
             this.chkEnableAutoDeleteJSON.Size = new System.Drawing.Size(157, 17);
             this.chkEnableAutoDeleteJSON.TabIndex = 25;
@@ -477,7 +491,7 @@
             // 
             this.chkClearText.AutoSize = true;
             this.chkClearText.BackColor = System.Drawing.Color.Transparent;
-            this.chkClearText.Location = new System.Drawing.Point(75, 406);
+            this.chkClearText.Location = new System.Drawing.Point(76, 406);
             this.chkClearText.Name = "chkClearText";
             this.chkClearText.Size = new System.Drawing.Size(109, 17);
             this.chkClearText.TabIndex = 24;
@@ -497,7 +511,7 @@
             // btnModifyScriptTime
             // 
             this.btnModifyScriptTime.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModifyScriptTime.Location = new System.Drawing.Point(442, 324);
+            this.btnModifyScriptTime.Location = new System.Drawing.Point(289, 323);
             this.btnModifyScriptTime.Name = "btnModifyScriptTime";
             this.btnModifyScriptTime.Size = new System.Drawing.Size(149, 26);
             this.btnModifyScriptTime.TabIndex = 32;
@@ -511,7 +525,7 @@
             this.lblScriptDelete.Name = "lblScriptDelete";
             this.lblScriptDelete.Size = new System.Drawing.Size(237, 16);
             this.lblScriptDelete.TabIndex = 40;
-            this.lblScriptDelete.Text = "Scripts Delete: 0 Seconds Upon Run";
+            this.lblScriptDelete.Text = "Tasks Delete: 0 Seconds Upon Run";
             // 
             // lblConsoleText
             // 
@@ -538,7 +552,7 @@
             // btnClearConsole
             // 
             this.btnClearConsole.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearConsole.Location = new System.Drawing.Point(443, 355);
+            this.btnClearConsole.Location = new System.Drawing.Point(443, 353);
             this.btnClearConsole.Name = "btnClearConsole";
             this.btnClearConsole.Size = new System.Drawing.Size(148, 26);
             this.btnClearConsole.TabIndex = 34;
@@ -549,7 +563,7 @@
             // chkDarkMode
             // 
             this.chkDarkMode.AutoSize = true;
-            this.chkDarkMode.Location = new System.Drawing.Point(75, 448);
+            this.chkDarkMode.Location = new System.Drawing.Point(76, 448);
             this.chkDarkMode.Name = "chkDarkMode";
             this.chkDarkMode.Size = new System.Drawing.Size(195, 17);
             this.chkDarkMode.TabIndex = 26;
@@ -560,12 +574,136 @@
             // lblCommandPrompts
             // 
             this.lblCommandPrompts.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommandPrompts.Location = new System.Drawing.Point(325, 246);
+            this.lblCommandPrompts.Location = new System.Drawing.Point(326, 246);
             this.lblCommandPrompts.Name = "lblCommandPrompts";
             this.lblCommandPrompts.Size = new System.Drawing.Size(232, 43);
             this.lblCommandPrompts.TabIndex = 28;
             this.lblCommandPrompts.Text = "Utility Commands";
             this.lblCommandPrompts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblListOfAddons
+            // 
+            this.lblListOfAddons.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListOfAddons.Location = new System.Drawing.Point(746, 248);
+            this.lblListOfAddons.Name = "lblListOfAddons";
+            this.lblListOfAddons.Size = new System.Drawing.Size(209, 43);
+            this.lblListOfAddons.TabIndex = 45;
+            this.lblListOfAddons.Text = "Addon List";
+            this.lblListOfAddons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lstAddons
+            // 
+            this.lstAddons.FormattingEnabled = true;
+            this.lstAddons.HorizontalScrollbar = true;
+            this.lstAddons.Location = new System.Drawing.Point(638, 295);
+            this.lstAddons.Name = "lstAddons";
+            this.lstAddons.Size = new System.Drawing.Size(432, 147);
+            this.lstAddons.TabIndex = 46;
+            // 
+            // tmrFillAddons
+            // 
+            this.tmrFillAddons.Interval = 1;
+            this.tmrFillAddons.Tick += new System.EventHandler(this.tmrFillAddons_Tick);
+            // 
+            // btnLoadAddonList
+            // 
+            this.btnLoadAddonList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadAddonList.Location = new System.Drawing.Point(1094, 330);
+            this.btnLoadAddonList.Name = "btnLoadAddonList";
+            this.btnLoadAddonList.Size = new System.Drawing.Size(149, 26);
+            this.btnLoadAddonList.TabIndex = 47;
+            this.btnLoadAddonList.Text = "Load Addons";
+            this.btnLoadAddonList.UseVisualStyleBackColor = true;
+            this.btnLoadAddonList.Click += new System.EventHandler(this.btnLoadAddonList_Click);
+            // 
+            // btnClearAddons
+            // 
+            this.btnClearAddons.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearAddons.Location = new System.Drawing.Point(1094, 442);
+            this.btnClearAddons.Name = "btnClearAddons";
+            this.btnClearAddons.Size = new System.Drawing.Size(149, 26);
+            this.btnClearAddons.TabIndex = 48;
+            this.btnClearAddons.Text = "Clear Addon List";
+            this.btnClearAddons.UseVisualStyleBackColor = true;
+            this.btnClearAddons.Click += new System.EventHandler(this.btnClearAddons_Click);
+            // 
+            // lblListCommands
+            // 
+            this.lblListCommands.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCommands.Location = new System.Drawing.Point(1087, 284);
+            this.lblListCommands.Name = "lblListCommands";
+            this.lblListCommands.Size = new System.Drawing.Size(166, 43);
+            this.lblListCommands.TabIndex = 49;
+            this.lblListCommands.Text = "Commands";
+            this.lblListCommands.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblListCommandTop
+            // 
+            this.lblListCommandTop.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCommandTop.Location = new System.Drawing.Point(1128, 254);
+            this.lblListCommandTop.Name = "lblListCommandTop";
+            this.lblListCommandTop.Size = new System.Drawing.Size(84, 43);
+            this.lblListCommandTop.TabIndex = 50;
+            this.lblListCommandTop.Text = "List";
+            this.lblListCommandTop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnUseAddonID
+            // 
+            this.btnUseAddonID.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUseAddonID.Location = new System.Drawing.Point(1094, 386);
+            this.btnUseAddonID.Name = "btnUseAddonID";
+            this.btnUseAddonID.Size = new System.Drawing.Size(149, 26);
+            this.btnUseAddonID.TabIndex = 51;
+            this.btnUseAddonID.Text = "Use Addon ID";
+            this.btnUseAddonID.UseVisualStyleBackColor = true;
+            this.btnUseAddonID.Click += new System.EventHandler(this.btnUseAddonID_Click);
+            // 
+            // btnSearchAddon
+            // 
+            this.btnSearchAddon.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchAddon.Location = new System.Drawing.Point(1094, 358);
+            this.btnSearchAddon.Name = "btnSearchAddon";
+            this.btnSearchAddon.Size = new System.Drawing.Size(149, 26);
+            this.btnSearchAddon.TabIndex = 52;
+            this.btnSearchAddon.Text = "Search Addon";
+            this.btnSearchAddon.UseVisualStyleBackColor = true;
+            this.btnSearchAddon.Click += new System.EventHandler(this.btnSearchAddon_Click);
+            // 
+            // lblSearchAddon
+            // 
+            this.lblSearchAddon.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearchAddon.Location = new System.Drawing.Point(635, 448);
+            this.lblSearchAddon.Name = "lblSearchAddon";
+            this.lblSearchAddon.Size = new System.Drawing.Size(88, 16);
+            this.lblSearchAddon.TabIndex = 53;
+            this.lblSearchAddon.Text = "Search Addon:";
+            // 
+            // txtSearchAddon
+            // 
+            this.txtSearchAddon.Location = new System.Drawing.Point(720, 445);
+            this.txtSearchAddon.Name = "txtSearchAddon";
+            this.txtSearchAddon.Size = new System.Drawing.Size(350, 22);
+            this.txtSearchAddon.TabIndex = 54;
+            // 
+            // lblLoadingProgress
+            // 
+            this.lblLoadingProgress.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoadingProgress.Location = new System.Drawing.Point(636, 275);
+            this.lblLoadingProgress.Name = "lblLoadingProgress";
+            this.lblLoadingProgress.Size = new System.Drawing.Size(137, 16);
+            this.lblLoadingProgress.TabIndex = 55;
+            this.lblLoadingProgress.Text = "Addon List Not Loaded";
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearSearch.Location = new System.Drawing.Point(1094, 414);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(149, 26);
+            this.btnClearSearch.TabIndex = 56;
+            this.btnClearSearch.Text = "Clear Search";
+            this.btnClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
             // 
             // frmGarrysModWorkshopUtility
             // 
@@ -573,6 +711,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1270, 898);
+            this.Controls.Add(this.btnClearSearch);
+            this.Controls.Add(this.lblLoadingProgress);
+            this.Controls.Add(this.txtSearchAddon);
+            this.Controls.Add(this.lblSearchAddon);
+            this.Controls.Add(this.btnSearchAddon);
+            this.Controls.Add(this.btnUseAddonID);
+            this.Controls.Add(this.lblListCommandTop);
+            this.Controls.Add(this.lblListCommands);
+            this.Controls.Add(this.btnClearAddons);
+            this.Controls.Add(this.btnLoadAddonList);
+            this.Controls.Add(this.lblListOfAddons);
+            this.Controls.Add(this.lstAddons);
             this.Controls.Add(this.lblCommandPrompts);
             this.Controls.Add(this.chkDarkMode);
             this.Controls.Add(this.btnClearConsole);
@@ -626,7 +776,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmGarrysModWorkshopUtility";
-            this.Text = "Garry\'s Mod Workshop Utility";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Garry\'s Mod Workshop Utility | By DefyTheRush";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmGarrysModWorkshopUtility_FormClosing);
             this.Load += new System.EventHandler(this.frmGarrysModWorkshopUtility_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pboxIconPreview)).EndInit();
@@ -686,6 +837,18 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.CheckBox chkDarkMode;
         private System.Windows.Forms.Label lblCommandPrompts;
+        private System.Windows.Forms.Label lblListOfAddons;
+        private System.Windows.Forms.ListBox lstAddons;
+        private System.Windows.Forms.Timer tmrFillAddons;
+        private System.Windows.Forms.Button btnLoadAddonList;
+        private System.Windows.Forms.Button btnClearAddons;
+        private System.Windows.Forms.Label lblListCommands;
+        private System.Windows.Forms.Label lblListCommandTop;
+        private System.Windows.Forms.Button btnUseAddonID;
+        private System.Windows.Forms.Button btnSearchAddon;
+        private System.Windows.Forms.Label lblSearchAddon;
+        private System.Windows.Forms.TextBox txtSearchAddon;
+        private System.Windows.Forms.Label lblLoadingProgress;
+        private System.Windows.Forms.Button btnClearSearch;
     }
 }
-
