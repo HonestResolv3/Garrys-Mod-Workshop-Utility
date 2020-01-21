@@ -60,9 +60,15 @@ namespace GarrysModWorkshopUtility
         String[] addonTags = { "fun", "roleplay", "scenic", "movie", "realism", "cartoon", "water", "comic", "build" };
 
         ArrayList tasks = new ArrayList();
+        ArrayList newStringList = new ArrayList();
+        ArrayList forAddonList = new ArrayList();
 
         private void frmGarrysModWorkshopUtility_Load(object sender, EventArgs e)
         {
+            /*Rectangle newRect = Screen.FromControl(this).Bounds;
+            int desktopX = newRect.X;
+            int desktopY = newRect.Y;
+            this.Location = new Point(desktopX, desktopY);*/
             startProgramEffects();
             makeControlsTransparent();
             loadUserInput();
@@ -692,7 +698,6 @@ namespace GarrysModWorkshopUtility
             else
             {
                 GarrysModWorkshopUtil.Credits newCreditWindow = new GarrysModWorkshopUtil.Credits();
-                newCreditWindow.Show();
             }
         }
 
@@ -777,7 +782,6 @@ namespace GarrysModWorkshopUtility
                 GarrysModWorkshopUtil.AboutPage newAboutPage = new GarrysModWorkshopUtil.AboutPage();
                 newAboutPage.Show();
             }
-            //MessageBox.Show("Garry's Mod Workshop Utility (GMWU) Version 3 Alpha 3\n\nCreated by: DefyTheRush\n\nVersion 3 Changelog:\n- Working output console\n- Improved design\n- Experimental dark mode added\n- Removed command pausing (it was useless when the console came)\n- Changing MessageBox notices\n- Users can clear the console screen\n- Users can no longer run tasks manually if auto-run is enabled\n- Users can no longer modify time if manual task run is on\n- Credits page now saves choice for image switching\n- Changed default program text to something better\n- Fixed .exe directories when switching functions\n- Fixed auto-run time button disabling if program is re-opened\n- Fixed error with parsing icon updates\n- Fixed useless error if you entered in nothing for ID, or times\n- Fixed tab indexes and random tab stops\n- Fixed .gma's failing to save and extract with Unicode characters\n- Fixed remove queue message displays\n\nVersion 2 Changelog:\n- Added queue system\n- Added way to change task auto-run time\n- Users can now type into the text boxes\n- Users can choose where to place the output .gma after creation\n- Users can choose how long they want each script to delete for\n- User input is now saved for all parts of the program\n- Added toggle for resizing program\n- Added toggle for automatically deleting addon.json\n- Added toggle for automatically clearing text\n- Added toggle for command prompt pausing\n- All required .dll's are embeeded into the .exe now\n- Folder opening dialog is improved\n- Icon preview resets if input is cleared\n- Addon.json supports multiple wildcards with proper parsing\n- Improved validation checking\n- Credits window is restricted to one at a time\n- Bug fixes & General formatting fixes\n\nVersion 1 Changelog:\n- Added 6 program functions (Creating, Extracting, Publishing, Updating)\n- Added credits and help functions\n- Added validation checks for many parts of the program\n- Added clean design", "About the program");
         }
 
         private void btnModifyTimer_Click(object sender, EventArgs e)
@@ -858,6 +862,7 @@ namespace GarrysModWorkshopUtility
         private void btnClearAddons_Click(object sender, EventArgs e)
         {
             lstAddons.Items.Clear();
+            lblLoadingProgress.Text = "Addon List Not Loaded";
         }
 
 
@@ -875,19 +880,28 @@ namespace GarrysModWorkshopUtility
             {
                 try
                 {
+                    newStringList.Clear();
                     lstAddons.Items.Clear();
-                    StreamWriter addonWriter = new StreamWriter("addon_obtainer.bat");
-                    addonWriter.WriteLine("\"" + txtGMadFolderLocation.Text + "\"" + " list > " + txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt" + "\"");
-                    addonWriter.Close();
-                    System.Diagnostics.Process.Start("addon_obtainer.bat");
-                    addonWriter = null;
+                    var processInfo = new ProcessStartInfo(txtGMadFolderLocation.Text, "list");
+                    processInfo.CreateNoWindow = true;
+                    processInfo.UseShellExecute = false;
+                    processInfo.RedirectStandardError = true;
+                    processInfo.RedirectStandardOutput = true;
+
+                    var process = Process.Start(processInfo);
+                    while (!process.StandardOutput.EndOfStream)
+                    {
+                        string line = process.StandardOutput.ReadLine();
+                        newStringList.Add(line.Trim());
+                    }
+                    process.WaitForExit();
+                    process.Close();
                     tmrFillAddons.Start();
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Please enter in the path leading to GMPublish.exe!", "Error");
                 }
-                //conControl.StartProcess("\"" + txtGMadFolderLocation.Text + "\"" + " list > " + txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\"))  + "\\Output.txt" + "\"", "");
             }
         }
 
@@ -910,6 +924,61 @@ namespace GarrysModWorkshopUtility
                     addonList.Add(item);
                 }
                 txtAddonIDNumber.Text = addonList[lstAddons.SelectedIndex].ToString().Substring(0, 11);
+            }
+        }
+
+
+        private void btnSearchAddon_Click(object sender, EventArgs e)
+        {
+            if (txtSearchAddon.Text.Equals(""))
+            {
+                MessageBox.Show("You cannot search for nothing!", "Error");
+            }
+            else if (lstAddons.Items.Count == 0 || newStringList.Count == 0)
+            {
+                MessageBox.Show("You cannot use this until you load the addon list!", "Error");
+            }
+            else
+            {
+                String input = txtSearchAddon.Text;
+                ArrayList wordsWithSearch = new ArrayList();
+                lstAddons.Items.Clear();
+                int index = 0;
+                foreach (String line in forAddonList)
+                {
+                    if (line.Contains(input))
+                    {
+                        wordsWithSearch.Add(line.Trim());
+                        lstAddons.Items.Add((string)wordsWithSearch[index]);
+                        index++;
+                    }
+                }
+            }
+        }
+
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            bool allowedToClearSearch = false;
+            if (newStringList.Count == 0)
+            {
+                MessageBox.Show("You cannot use this until you load the addon list!", "Error");
+            }
+            else if (!txtGMadFolderLocation.Text.Contains("gmpublish.exe"))
+            {
+                MessageBox.Show("You cannot use this if your program is looking at GMad.exe!", "Error");
+            }
+            else if (txtSearchAddon.Text.Equals("") && lstAddons.Items.Count != 0)
+            {
+                MessageBox.Show("You cannot clear an empty search!", "Error");
+            }
+            else
+            {
+                txtSearchAddon.Text = "";
+                lblLoadingProgress.Text = "Addon List Not Loaded";
+                lstAddons.Items.Clear();
+                newStringList.Clear();
+                forAddonList.Clear();
             }
         }
 
@@ -1532,25 +1601,33 @@ namespace GarrysModWorkshopUtility
 
         private void tmrFillAddons_Tick(object sender, EventArgs e)
         {
-            File.Delete("addon_obtainer.bat");
-            lines = System.IO.File.ReadAllLines(txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt");
-            int index = 0;
-            foreach (String line in lines)
+            try
             {
-                if (index < 4)
+                int index = 0;
+                foreach (String line in newStringList)
                 {
+                    if (index < 4)
+                    {
 
+                    }
+                    else
+                    {
+                        lstAddons.Items.Add(line.Trim());
+                        forAddonList.Add(line.Trim());
+                    }
+                    index++;
                 }
-                else
-                {
-                    lstAddons.Items.Add(line.Trim());
-                }
-                index++;
+                lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
+                lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
+                lblLoadingProgress.Text = "Addon List Loaded!";
+                tmrFillAddons.Stop();
             }
-            lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
-            lstAddons.Items.RemoveAt(lstAddons.Items.Count - 1);
-            File.Delete(txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\Output.txt");
-            tmrFillAddons.Stop();
+            catch (Exception)
+            {
+                lblLoadingProgress.Text = "Error Loading List!";
+                tmrFillAddons.Stop();
+            }
+            
         }
 
         private void chkIgnoreNotices_CheckedChanged(object sender, EventArgs e)
@@ -1623,7 +1700,7 @@ namespace GarrysModWorkshopUtility
             {
                 this.BackColor = SystemColors.Control;
                 lstQueue.BackColor = SystemColors.Window;
-                lstAddons.BackColor = SystemColors.Control;
+                lstAddons.BackColor = SystemColors.Window;
                 lstAddons.ForeColor = System.Drawing.Color.Black;
                 lstQueue.ForeColor = System.Drawing.Color.Black;
                 GarrysModWorkshopUtil.Properties.Settings.Default.EnableDarkMode = false;
