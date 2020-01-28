@@ -95,6 +95,7 @@ namespace GarrysModWorkshopUtility
             this.btnViewDeletedTasks = new System.Windows.Forms.Button();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.chkUseDefLoc = new System.Windows.Forms.CheckBox();
+            this.btnReloadProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pboxIconPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -252,9 +253,9 @@ namespace GarrysModWorkshopUtility
             // btnClearTextBoxes
             // 
             this.btnClearTextBoxes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearTextBoxes.Location = new System.Drawing.Point(289, 378);
+            this.btnClearTextBoxes.Location = new System.Drawing.Point(289, 379);
             this.btnClearTextBoxes.Name = "btnClearTextBoxes";
-            this.btnClearTextBoxes.Size = new System.Drawing.Size(149, 26);
+            this.btnClearTextBoxes.Size = new System.Drawing.Size(149, 25);
             this.btnClearTextBoxes.TabIndex = 36;
             this.btnClearTextBoxes.Text = "Clear Input";
             this.btnClearTextBoxes.UseVisualStyleBackColor = true;
@@ -453,9 +454,9 @@ namespace GarrysModWorkshopUtility
             // btnResetResizePosition
             // 
             this.btnResetResizePosition.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetResizePosition.Location = new System.Drawing.Point(290, 409);
+            this.btnResetResizePosition.Location = new System.Drawing.Point(290, 410);
             this.btnResetResizePosition.Name = "btnResetResizePosition";
-            this.btnResetResizePosition.Size = new System.Drawing.Size(148, 26);
+            this.btnResetResizePosition.Size = new System.Drawing.Size(148, 25);
             this.btnResetResizePosition.TabIndex = 38;
             this.btnResetResizePosition.Text = "Reset Resizing";
             this.btnResetResizePosition.UseVisualStyleBackColor = true;
@@ -741,12 +742,24 @@ namespace GarrysModWorkshopUtility
             this.chkUseDefLoc.UseVisualStyleBackColor = true;
             this.chkUseDefLoc.CheckedChanged += new System.EventHandler(this.chkUseDefLoc_CheckedChanged);
             // 
+            // btnReloadProgram
+            // 
+            this.btnReloadProgram.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadProgram.Location = new System.Drawing.Point(368, 472);
+            this.btnReloadProgram.Name = "btnReloadProgram";
+            this.btnReloadProgram.Size = new System.Drawing.Size(149, 26);
+            this.btnReloadProgram.TabIndex = 60;
+            this.btnReloadProgram.Text = "Reload Program";
+            this.btnReloadProgram.UseVisualStyleBackColor = true;
+            this.btnReloadProgram.Click += new System.EventHandler(this.btnReloadProgram_Click);
+            // 
             // frmGarrysModWorkshopUtility
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1270, 898);
+            this.Controls.Add(this.btnReloadProgram);
             this.Controls.Add(this.chkUseDefLoc);
             this.Controls.Add(this.btnRemoveAll);
             this.Controls.Add(this.btnViewDeletedTasks);
@@ -892,5 +905,7 @@ namespace GarrysModWorkshopUtility
         private System.Windows.Forms.Button btnViewDeletedTasks;
         private System.Windows.Forms.Button btnRemoveAll;
         private System.Windows.Forms.CheckBox chkUseDefLoc;
+        private System.Windows.Forms.Button btnReloadProgram;
     }
 }
+
