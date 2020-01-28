@@ -1,4 +1,4 @@
-﻿namespace GarrysModWorkshopUtility
+namespace GarrysModWorkshopUtility
 {
     partial class frmGarrysModWorkshopUtility
     {
@@ -92,6 +92,10 @@
             this.txtSearchAddon = new System.Windows.Forms.TextBox();
             this.lblLoadingProgress = new System.Windows.Forms.Label();
             this.btnClearSearch = new System.Windows.Forms.Button();
+            this.btnViewDeletedTasks = new System.Windows.Forms.Button();
+            this.btnRemoveAll = new System.Windows.Forms.Button();
+            this.chkUseDefLoc = new System.Windows.Forms.CheckBox();
+            this.btnReloadProgram = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pboxIconPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,7 +113,7 @@
             // radPublishAddon
             // 
             this.radPublishAddon.AutoSize = true;
-            this.radPublishAddon.Location = new System.Drawing.Point(165, 315);
+            this.radPublishAddon.Location = new System.Drawing.Point(165, 310);
             this.radPublishAddon.Name = "radPublishAddon";
             this.radPublishAddon.Size = new System.Drawing.Size(101, 17);
             this.radPublishAddon.TabIndex = 19;
@@ -120,7 +124,7 @@
             // radUpdateAddon
             // 
             this.radUpdateAddon.AutoSize = true;
-            this.radUpdateAddon.Location = new System.Drawing.Point(44, 338);
+            this.radUpdateAddon.Location = new System.Drawing.Point(44, 333);
             this.radUpdateAddon.Name = "radUpdateAddon";
             this.radUpdateAddon.Size = new System.Drawing.Size(101, 17);
             this.radUpdateAddon.TabIndex = 20;
@@ -132,7 +136,7 @@
             // 
             this.radCreateGma.AutoSize = true;
             this.radCreateGma.Checked = true;
-            this.radCreateGma.Location = new System.Drawing.Point(44, 291);
+            this.radCreateGma.Location = new System.Drawing.Point(44, 286);
             this.radCreateGma.Name = "radCreateGma";
             this.radCreateGma.Size = new System.Drawing.Size(89, 17);
             this.radCreateGma.TabIndex = 16;
@@ -144,7 +148,7 @@
             // radUpdateIcon
             // 
             this.radUpdateIcon.AutoSize = true;
-            this.radUpdateIcon.Location = new System.Drawing.Point(165, 338);
+            this.radUpdateIcon.Location = new System.Drawing.Point(165, 333);
             this.radUpdateIcon.Name = "radUpdateIcon";
             this.radUpdateIcon.Size = new System.Drawing.Size(88, 17);
             this.radUpdateIcon.TabIndex = 21;
@@ -155,7 +159,7 @@
             // lblUtilityOptions
             // 
             this.lblUtilityOptions.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUtilityOptions.Location = new System.Drawing.Point(48, 246);
+            this.lblUtilityOptions.Location = new System.Drawing.Point(48, 241);
             this.lblUtilityOptions.Name = "lblUtilityOptions";
             this.lblUtilityOptions.Size = new System.Drawing.Size(209, 43);
             this.lblUtilityOptions.TabIndex = 15;
@@ -165,10 +169,10 @@
             // btnAddToQueue
             // 
             this.btnAddToQueue.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddToQueue.Location = new System.Drawing.Point(289, 294);
+            this.btnAddToQueue.Location = new System.Drawing.Point(289, 289);
             this.btnAddToQueue.Name = "btnAddToQueue";
             this.btnAddToQueue.Size = new System.Drawing.Size(149, 26);
-            this.btnAddToQueue.TabIndex = 29;
+            this.btnAddToQueue.TabIndex = 30;
             this.btnAddToQueue.Text = "Add To Queue";
             this.btnAddToQueue.UseVisualStyleBackColor = true;
             this.btnAddToQueue.Click += new System.EventHandler(this.btnAddToQueue_Click);
@@ -249,10 +253,10 @@
             // btnClearTextBoxes
             // 
             this.btnClearTextBoxes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearTextBoxes.Location = new System.Drawing.Point(289, 353);
+            this.btnClearTextBoxes.Location = new System.Drawing.Point(289, 379);
             this.btnClearTextBoxes.Name = "btnClearTextBoxes";
-            this.btnClearTextBoxes.Size = new System.Drawing.Size(149, 26);
-            this.btnClearTextBoxes.TabIndex = 33;
+            this.btnClearTextBoxes.Size = new System.Drawing.Size(149, 25);
+            this.btnClearTextBoxes.TabIndex = 36;
             this.btnClearTextBoxes.Text = "Clear Input";
             this.btnClearTextBoxes.UseVisualStyleBackColor = true;
             this.btnClearTextBoxes.Click += new System.EventHandler(this.btnClearTextBoxes_Click);
@@ -260,10 +264,10 @@
             // btnHelpPage
             // 
             this.btnHelpPage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelpPage.Location = new System.Drawing.Point(443, 415);
+            this.btnHelpPage.Location = new System.Drawing.Point(443, 410);
             this.btnHelpPage.Name = "btnHelpPage";
             this.btnHelpPage.Size = new System.Drawing.Size(148, 26);
-            this.btnHelpPage.TabIndex = 38;
+            this.btnHelpPage.TabIndex = 39;
             this.btnHelpPage.Text = "Help";
             this.btnHelpPage.UseVisualStyleBackColor = true;
             this.btnHelpPage.Click += new System.EventHandler(this.btnHelpPage_Click);
@@ -289,7 +293,7 @@
             // radCreateJSon
             // 
             this.radCreateJSon.AutoSize = true;
-            this.radCreateJSon.Location = new System.Drawing.Point(165, 291);
+            this.radCreateJSon.Location = new System.Drawing.Point(165, 286);
             this.radCreateJSon.Name = "radCreateJSon";
             this.radCreateJSon.Size = new System.Drawing.Size(91, 17);
             this.radCreateJSon.TabIndex = 17;
@@ -328,7 +332,7 @@
             // radExtractGMA
             // 
             this.radExtractGMA.AutoSize = true;
-            this.radExtractGMA.Location = new System.Drawing.Point(44, 315);
+            this.radExtractGMA.Location = new System.Drawing.Point(44, 310);
             this.radExtractGMA.Name = "radExtractGMA";
             this.radExtractGMA.Size = new System.Drawing.Size(90, 17);
             this.radExtractGMA.TabIndex = 18;
@@ -342,7 +346,7 @@
             this.lblQueue.Location = new System.Drawing.Point(833, 2);
             this.lblQueue.Name = "lblQueue";
             this.lblQueue.Size = new System.Drawing.Size(209, 43);
-            this.lblQueue.TabIndex = 41;
+            this.lblQueue.TabIndex = 44;
             this.lblQueue.Text = "Queue";
             this.lblQueue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -353,15 +357,15 @@
             this.lstQueue.Location = new System.Drawing.Point(638, 48);
             this.lstQueue.Name = "lstQueue";
             this.lstQueue.Size = new System.Drawing.Size(612, 199);
-            this.lstQueue.TabIndex = 42;
+            this.lstQueue.TabIndex = 45;
             // 
             // btnRemoveFromQueue
             // 
             this.btnRemoveFromQueue.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFromQueue.Location = new System.Drawing.Point(443, 294);
+            this.btnRemoveFromQueue.Location = new System.Drawing.Point(443, 289);
             this.btnRemoveFromQueue.Name = "btnRemoveFromQueue";
             this.btnRemoveFromQueue.Size = new System.Drawing.Size(148, 26);
-            this.btnRemoveFromQueue.TabIndex = 30;
+            this.btnRemoveFromQueue.TabIndex = 31;
             this.btnRemoveFromQueue.Text = "Remove From Queue";
             this.btnRemoveFromQueue.UseVisualStyleBackColor = true;
             this.btnRemoveFromQueue.Click += new System.EventHandler(this.btnRemoveFromQueue_Click);
@@ -369,10 +373,10 @@
             // btnRunTask
             // 
             this.btnRunTask.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRunTask.Location = new System.Drawing.Point(443, 384);
+            this.btnRunTask.Location = new System.Drawing.Point(443, 379);
             this.btnRunTask.Name = "btnRunTask";
             this.btnRunTask.Size = new System.Drawing.Size(148, 26);
-            this.btnRunTask.TabIndex = 36;
+            this.btnRunTask.TabIndex = 37;
             this.btnRunTask.Text = "Run Task Manually";
             this.btnRunTask.UseVisualStyleBackColor = true;
             this.btnRunTask.Click += new System.EventHandler(this.btnRunTask_Click);
@@ -380,10 +384,10 @@
             // btnAbout
             // 
             this.btnAbout.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbout.Location = new System.Drawing.Point(290, 415);
+            this.btnAbout.Location = new System.Drawing.Point(290, 440);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(148, 26);
-            this.btnAbout.TabIndex = 37;
+            this.btnAbout.TabIndex = 40;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
@@ -396,10 +400,10 @@
             // chkAutoRun
             // 
             this.chkAutoRun.AutoSize = true;
-            this.chkAutoRun.Location = new System.Drawing.Point(76, 385);
+            this.chkAutoRun.Location = new System.Drawing.Point(63, 402);
             this.chkAutoRun.Name = "chkAutoRun";
             this.chkAutoRun.Size = new System.Drawing.Size(111, 17);
-            this.chkAutoRun.TabIndex = 23;
+            this.chkAutoRun.TabIndex = 24;
             this.chkAutoRun.Text = "Auto-Run Tasks?";
             this.chkAutoRun.UseVisualStyleBackColor = true;
             this.chkAutoRun.CheckedChanged += new System.EventHandler(this.chkAutoRun_CheckedChanged);
@@ -407,10 +411,10 @@
             // btnModifyTimer
             // 
             this.btnModifyTimer.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModifyTimer.Location = new System.Drawing.Point(442, 323);
+            this.btnModifyTimer.Location = new System.Drawing.Point(442, 318);
             this.btnModifyTimer.Name = "btnModifyTimer";
             this.btnModifyTimer.Size = new System.Drawing.Size(149, 26);
-            this.btnModifyTimer.TabIndex = 31;
+            this.btnModifyTimer.TabIndex = 33;
             this.btnModifyTimer.Text = "Modify Auto-Run Time";
             this.btnModifyTimer.UseVisualStyleBackColor = true;
             this.btnModifyTimer.Click += new System.EventHandler(this.btnModifyTimer_Click);
@@ -418,10 +422,10 @@
             // chkIgnoreNotices
             // 
             this.chkIgnoreNotices.AutoSize = true;
-            this.chkIgnoreNotices.Location = new System.Drawing.Point(76, 364);
+            this.chkIgnoreNotices.Location = new System.Drawing.Point(63, 381);
             this.chkIgnoreNotices.Name = "chkIgnoreNotices";
             this.chkIgnoreNotices.Size = new System.Drawing.Size(152, 17);
-            this.chkIgnoreNotices.TabIndex = 22;
+            this.chkIgnoreNotices.TabIndex = 23;
             this.chkIgnoreNotices.Text = "Ignore Program Notices?";
             this.chkIgnoreNotices.UseVisualStyleBackColor = true;
             this.chkIgnoreNotices.CheckedChanged += new System.EventHandler(this.chkIgnoreNotices_CheckedChanged);
@@ -439,10 +443,10 @@
             // chkToggleResizing
             // 
             this.chkToggleResizing.AutoSize = true;
-            this.chkToggleResizing.Location = new System.Drawing.Point(76, 470);
+            this.chkToggleResizing.Location = new System.Drawing.Point(63, 487);
             this.chkToggleResizing.Name = "chkToggleResizing";
             this.chkToggleResizing.Size = new System.Drawing.Size(181, 17);
-            this.chkToggleResizing.TabIndex = 27;
+            this.chkToggleResizing.TabIndex = 28;
             this.chkToggleResizing.Text = "Enable Experimental Resizing?";
             this.chkToggleResizing.UseVisualStyleBackColor = true;
             this.chkToggleResizing.CheckedChanged += new System.EventHandler(this.chkToggleResizing_CheckedChanged);
@@ -450,10 +454,10 @@
             // btnResetResizePosition
             // 
             this.btnResetResizePosition.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetResizePosition.Location = new System.Drawing.Point(290, 384);
+            this.btnResetResizePosition.Location = new System.Drawing.Point(290, 410);
             this.btnResetResizePosition.Name = "btnResetResizePosition";
-            this.btnResetResizePosition.Size = new System.Drawing.Size(148, 26);
-            this.btnResetResizePosition.TabIndex = 35;
+            this.btnResetResizePosition.Size = new System.Drawing.Size(148, 25);
+            this.btnResetResizePosition.TabIndex = 38;
             this.btnResetResizePosition.Text = "Reset Resizing";
             this.btnResetResizePosition.UseVisualStyleBackColor = true;
             this.btnResetResizePosition.Click += new System.EventHandler(this.btnResetResizePosition_Click);
@@ -479,10 +483,10 @@
             // chkEnableAutoDeleteJSON
             // 
             this.chkEnableAutoDeleteJSON.AutoSize = true;
-            this.chkEnableAutoDeleteJSON.Location = new System.Drawing.Point(76, 427);
+            this.chkEnableAutoDeleteJSON.Location = new System.Drawing.Point(63, 444);
             this.chkEnableAutoDeleteJSON.Name = "chkEnableAutoDeleteJSON";
             this.chkEnableAutoDeleteJSON.Size = new System.Drawing.Size(157, 17);
-            this.chkEnableAutoDeleteJSON.TabIndex = 25;
+            this.chkEnableAutoDeleteJSON.TabIndex = 26;
             this.chkEnableAutoDeleteJSON.Text = "Auto-Delete Addon.Json?";
             this.chkEnableAutoDeleteJSON.UseVisualStyleBackColor = true;
             this.chkEnableAutoDeleteJSON.CheckedChanged += new System.EventHandler(this.chkEnableAutoDeleteJSON_CheckedChanged);
@@ -491,10 +495,10 @@
             // 
             this.chkClearText.AutoSize = true;
             this.chkClearText.BackColor = System.Drawing.Color.Transparent;
-            this.chkClearText.Location = new System.Drawing.Point(76, 406);
+            this.chkClearText.Location = new System.Drawing.Point(63, 423);
             this.chkClearText.Name = "chkClearText";
             this.chkClearText.Size = new System.Drawing.Size(109, 17);
-            this.chkClearText.TabIndex = 24;
+            this.chkClearText.TabIndex = 25;
             this.chkClearText.Text = "Auto-Clear Text?";
             this.chkClearText.UseVisualStyleBackColor = false;
             this.chkClearText.CheckedChanged += new System.EventHandler(this.chkClearText_CheckedChanged);
@@ -505,16 +509,16 @@
             this.lblRunTaskTime.Location = new System.Drawing.Point(635, 12);
             this.lblRunTaskTime.Name = "lblRunTaskTime";
             this.lblRunTaskTime.Size = new System.Drawing.Size(237, 16);
-            this.lblRunTaskTime.TabIndex = 39;
+            this.lblRunTaskTime.TabIndex = 42;
             this.lblRunTaskTime.Text = "Running Each Task: Manually";
             // 
             // btnModifyScriptTime
             // 
             this.btnModifyScriptTime.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModifyScriptTime.Location = new System.Drawing.Point(289, 323);
+            this.btnModifyScriptTime.Location = new System.Drawing.Point(289, 348);
             this.btnModifyScriptTime.Name = "btnModifyScriptTime";
             this.btnModifyScriptTime.Size = new System.Drawing.Size(149, 26);
-            this.btnModifyScriptTime.TabIndex = 32;
+            this.btnModifyScriptTime.TabIndex = 34;
             this.btnModifyScriptTime.Text = "Modify Script Delete Time";
             this.btnModifyScriptTime.UseVisualStyleBackColor = true;
             this.btnModifyScriptTime.Click += new System.EventHandler(this.btnModifyScriptTime_Click);
@@ -524,7 +528,7 @@
             this.lblScriptDelete.Location = new System.Drawing.Point(635, 29);
             this.lblScriptDelete.Name = "lblScriptDelete";
             this.lblScriptDelete.Size = new System.Drawing.Size(237, 16);
-            this.lblScriptDelete.TabIndex = 40;
+            this.lblScriptDelete.TabIndex = 43;
             this.lblScriptDelete.Text = "Tasks Delete: 0 Seconds Upon Run";
             // 
             // lblConsoleText
@@ -533,7 +537,7 @@
             this.lblConsoleText.Location = new System.Drawing.Point(529, 477);
             this.lblConsoleText.Name = "lblConsoleText";
             this.lblConsoleText.Size = new System.Drawing.Size(209, 43);
-            this.lblConsoleText.TabIndex = 43;
+            this.lblConsoleText.TabIndex = 58;
             this.lblConsoleText.Text = "Output";
             this.lblConsoleText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -546,16 +550,16 @@
             this.conControl.SendKeyboardCommandsToProcess = false;
             this.conControl.ShowDiagnostics = true;
             this.conControl.Size = new System.Drawing.Size(1246, 360);
-            this.conControl.TabIndex = 44;
+            this.conControl.TabIndex = 59;
             this.conControl.TabStop = false;
             // 
             // btnClearConsole
             // 
             this.btnClearConsole.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearConsole.Location = new System.Drawing.Point(443, 353);
+            this.btnClearConsole.Location = new System.Drawing.Point(443, 348);
             this.btnClearConsole.Name = "btnClearConsole";
             this.btnClearConsole.Size = new System.Drawing.Size(148, 26);
-            this.btnClearConsole.TabIndex = 34;
+            this.btnClearConsole.TabIndex = 35;
             this.btnClearConsole.Text = "Clear Console";
             this.btnClearConsole.UseVisualStyleBackColor = true;
             this.btnClearConsole.Click += new System.EventHandler(this.btnClearConsole_Click);
@@ -563,10 +567,10 @@
             // chkDarkMode
             // 
             this.chkDarkMode.AutoSize = true;
-            this.chkDarkMode.Location = new System.Drawing.Point(76, 448);
+            this.chkDarkMode.Location = new System.Drawing.Point(63, 465);
             this.chkDarkMode.Name = "chkDarkMode";
             this.chkDarkMode.Size = new System.Drawing.Size(195, 17);
-            this.chkDarkMode.TabIndex = 26;
+            this.chkDarkMode.TabIndex = 27;
             this.chkDarkMode.Text = "Enable Experimental Dark Mode?";
             this.chkDarkMode.UseVisualStyleBackColor = true;
             this.chkDarkMode.CheckedChanged += new System.EventHandler(this.chkDarkMode_CheckedChanged);
@@ -574,10 +578,10 @@
             // lblCommandPrompts
             // 
             this.lblCommandPrompts.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommandPrompts.Location = new System.Drawing.Point(326, 246);
+            this.lblCommandPrompts.Location = new System.Drawing.Point(326, 241);
             this.lblCommandPrompts.Name = "lblCommandPrompts";
             this.lblCommandPrompts.Size = new System.Drawing.Size(232, 43);
-            this.lblCommandPrompts.TabIndex = 28;
+            this.lblCommandPrompts.TabIndex = 29;
             this.lblCommandPrompts.Text = "Utility Commands";
             this.lblCommandPrompts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -587,7 +591,7 @@
             this.lblListOfAddons.Location = new System.Drawing.Point(746, 248);
             this.lblListOfAddons.Name = "lblListOfAddons";
             this.lblListOfAddons.Size = new System.Drawing.Size(209, 43);
-            this.lblListOfAddons.TabIndex = 45;
+            this.lblListOfAddons.TabIndex = 47;
             this.lblListOfAddons.Text = "Addon List";
             this.lblListOfAddons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -598,7 +602,7 @@
             this.lstAddons.Location = new System.Drawing.Point(638, 295);
             this.lstAddons.Name = "lstAddons";
             this.lstAddons.Size = new System.Drawing.Size(432, 147);
-            this.lstAddons.TabIndex = 46;
+            this.lstAddons.TabIndex = 48;
             // 
             // tmrFillAddons
             // 
@@ -611,7 +615,7 @@
             this.btnLoadAddonList.Location = new System.Drawing.Point(1094, 330);
             this.btnLoadAddonList.Name = "btnLoadAddonList";
             this.btnLoadAddonList.Size = new System.Drawing.Size(149, 26);
-            this.btnLoadAddonList.TabIndex = 47;
+            this.btnLoadAddonList.TabIndex = 53;
             this.btnLoadAddonList.Text = "Load Addons";
             this.btnLoadAddonList.UseVisualStyleBackColor = true;
             this.btnLoadAddonList.Click += new System.EventHandler(this.btnLoadAddonList_Click);
@@ -622,7 +626,7 @@
             this.btnClearAddons.Location = new System.Drawing.Point(1094, 442);
             this.btnClearAddons.Name = "btnClearAddons";
             this.btnClearAddons.Size = new System.Drawing.Size(149, 26);
-            this.btnClearAddons.TabIndex = 48;
+            this.btnClearAddons.TabIndex = 57;
             this.btnClearAddons.Text = "Clear Addon List";
             this.btnClearAddons.UseVisualStyleBackColor = true;
             this.btnClearAddons.Click += new System.EventHandler(this.btnClearAddons_Click);
@@ -633,7 +637,7 @@
             this.lblListCommands.Location = new System.Drawing.Point(1087, 284);
             this.lblListCommands.Name = "lblListCommands";
             this.lblListCommands.Size = new System.Drawing.Size(166, 43);
-            this.lblListCommands.TabIndex = 49;
+            this.lblListCommands.TabIndex = 52;
             this.lblListCommands.Text = "Commands";
             this.lblListCommands.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -643,7 +647,7 @@
             this.lblListCommandTop.Location = new System.Drawing.Point(1128, 254);
             this.lblListCommandTop.Name = "lblListCommandTop";
             this.lblListCommandTop.Size = new System.Drawing.Size(84, 43);
-            this.lblListCommandTop.TabIndex = 50;
+            this.lblListCommandTop.TabIndex = 51;
             this.lblListCommandTop.Text = "List";
             this.lblListCommandTop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -653,7 +657,7 @@
             this.btnUseAddonID.Location = new System.Drawing.Point(1094, 386);
             this.btnUseAddonID.Name = "btnUseAddonID";
             this.btnUseAddonID.Size = new System.Drawing.Size(149, 26);
-            this.btnUseAddonID.TabIndex = 51;
+            this.btnUseAddonID.TabIndex = 55;
             this.btnUseAddonID.Text = "Use Addon ID";
             this.btnUseAddonID.UseVisualStyleBackColor = true;
             this.btnUseAddonID.Click += new System.EventHandler(this.btnUseAddonID_Click);
@@ -664,7 +668,7 @@
             this.btnSearchAddon.Location = new System.Drawing.Point(1094, 358);
             this.btnSearchAddon.Name = "btnSearchAddon";
             this.btnSearchAddon.Size = new System.Drawing.Size(149, 26);
-            this.btnSearchAddon.TabIndex = 52;
+            this.btnSearchAddon.TabIndex = 54;
             this.btnSearchAddon.Text = "Search Addon";
             this.btnSearchAddon.UseVisualStyleBackColor = true;
             this.btnSearchAddon.Click += new System.EventHandler(this.btnSearchAddon_Click);
@@ -675,7 +679,7 @@
             this.lblSearchAddon.Location = new System.Drawing.Point(635, 448);
             this.lblSearchAddon.Name = "lblSearchAddon";
             this.lblSearchAddon.Size = new System.Drawing.Size(88, 16);
-            this.lblSearchAddon.TabIndex = 53;
+            this.lblSearchAddon.TabIndex = 49;
             this.lblSearchAddon.Text = "Search Addon:";
             // 
             // txtSearchAddon
@@ -683,7 +687,7 @@
             this.txtSearchAddon.Location = new System.Drawing.Point(720, 445);
             this.txtSearchAddon.Name = "txtSearchAddon";
             this.txtSearchAddon.Size = new System.Drawing.Size(350, 22);
-            this.txtSearchAddon.TabIndex = 54;
+            this.txtSearchAddon.TabIndex = 50;
             // 
             // lblLoadingProgress
             // 
@@ -691,7 +695,7 @@
             this.lblLoadingProgress.Location = new System.Drawing.Point(636, 275);
             this.lblLoadingProgress.Name = "lblLoadingProgress";
             this.lblLoadingProgress.Size = new System.Drawing.Size(137, 16);
-            this.lblLoadingProgress.TabIndex = 55;
+            this.lblLoadingProgress.TabIndex = 46;
             this.lblLoadingProgress.Text = "Addon List Not Loaded";
             // 
             // btnClearSearch
@@ -705,12 +709,60 @@
             this.btnClearSearch.UseVisualStyleBackColor = true;
             this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
             // 
+            // btnViewDeletedTasks
+            // 
+            this.btnViewDeletedTasks.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewDeletedTasks.Location = new System.Drawing.Point(442, 440);
+            this.btnViewDeletedTasks.Name = "btnViewDeletedTasks";
+            this.btnViewDeletedTasks.Size = new System.Drawing.Size(149, 26);
+            this.btnViewDeletedTasks.TabIndex = 41;
+            this.btnViewDeletedTasks.Text = "View Task History";
+            this.btnViewDeletedTasks.UseVisualStyleBackColor = true;
+            this.btnViewDeletedTasks.Click += new System.EventHandler(this.btnViewDeletedTasks_Click);
+            // 
+            // btnRemoveAll
+            // 
+            this.btnRemoveAll.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveAll.Location = new System.Drawing.Point(290, 318);
+            this.btnRemoveAll.Name = "btnRemoveAll";
+            this.btnRemoveAll.Size = new System.Drawing.Size(148, 26);
+            this.btnRemoveAll.TabIndex = 32;
+            this.btnRemoveAll.Text = "Remove All From Queue";
+            this.btnRemoveAll.UseVisualStyleBackColor = true;
+            this.btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
+            // 
+            // chkUseDefLoc
+            // 
+            this.chkUseDefLoc.AutoSize = true;
+            this.chkUseDefLoc.Location = new System.Drawing.Point(63, 360);
+            this.chkUseDefLoc.Name = "chkUseDefLoc";
+            this.chkUseDefLoc.Size = new System.Drawing.Size(178, 17);
+            this.chkUseDefLoc.TabIndex = 22;
+            this.chkUseDefLoc.Text = "Use Default Location For Exe?";
+            this.chkUseDefLoc.UseVisualStyleBackColor = true;
+            this.chkUseDefLoc.CheckedChanged += new System.EventHandler(this.chkUseDefLoc_CheckedChanged);
+            // 
+            // btnReloadProgram
+            // 
+            this.btnReloadProgram.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadProgram.Location = new System.Drawing.Point(368, 472);
+            this.btnReloadProgram.Name = "btnReloadProgram";
+            this.btnReloadProgram.Size = new System.Drawing.Size(149, 26);
+            this.btnReloadProgram.TabIndex = 60;
+            this.btnReloadProgram.Text = "Reload Program";
+            this.btnReloadProgram.UseVisualStyleBackColor = true;
+            this.btnReloadProgram.Click += new System.EventHandler(this.btnReloadProgram_Click);
+            // 
             // frmGarrysModWorkshopUtility
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1270, 898);
+            this.Controls.Add(this.btnReloadProgram);
+            this.Controls.Add(this.chkUseDefLoc);
+            this.Controls.Add(this.btnRemoveAll);
+            this.Controls.Add(this.btnViewDeletedTasks);
             this.Controls.Add(this.btnClearSearch);
             this.Controls.Add(this.lblLoadingProgress);
             this.Controls.Add(this.txtSearchAddon);
@@ -850,5 +902,10 @@
         private System.Windows.Forms.TextBox txtSearchAddon;
         private System.Windows.Forms.Label lblLoadingProgress;
         private System.Windows.Forms.Button btnClearSearch;
+        private System.Windows.Forms.Button btnViewDeletedTasks;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.CheckBox chkUseDefLoc;
+        private System.Windows.Forms.Button btnReloadProgram;
     }
 }
+
