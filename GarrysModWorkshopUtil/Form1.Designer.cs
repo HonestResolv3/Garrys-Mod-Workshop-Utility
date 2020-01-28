@@ -346,7 +346,7 @@ namespace GarrysModWorkshopUtility
             this.lblQueue.Location = new System.Drawing.Point(833, 2);
             this.lblQueue.Name = "lblQueue";
             this.lblQueue.Size = new System.Drawing.Size(209, 43);
-            this.lblQueue.TabIndex = 44;
+            this.lblQueue.TabIndex = 45;
             this.lblQueue.Text = "Queue";
             this.lblQueue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -357,7 +357,7 @@ namespace GarrysModWorkshopUtility
             this.lstQueue.Location = new System.Drawing.Point(638, 48);
             this.lstQueue.Name = "lstQueue";
             this.lstQueue.Size = new System.Drawing.Size(612, 199);
-            this.lstQueue.TabIndex = 45;
+            this.lstQueue.TabIndex = 46;
             // 
             // btnRemoveFromQueue
             // 
@@ -509,7 +509,7 @@ namespace GarrysModWorkshopUtility
             this.lblRunTaskTime.Location = new System.Drawing.Point(635, 12);
             this.lblRunTaskTime.Name = "lblRunTaskTime";
             this.lblRunTaskTime.Size = new System.Drawing.Size(237, 16);
-            this.lblRunTaskTime.TabIndex = 42;
+            this.lblRunTaskTime.TabIndex = 43;
             this.lblRunTaskTime.Text = "Running Each Task: Manually";
             // 
             // btnModifyScriptTime
@@ -528,7 +528,7 @@ namespace GarrysModWorkshopUtility
             this.lblScriptDelete.Location = new System.Drawing.Point(635, 29);
             this.lblScriptDelete.Name = "lblScriptDelete";
             this.lblScriptDelete.Size = new System.Drawing.Size(237, 16);
-            this.lblScriptDelete.TabIndex = 43;
+            this.lblScriptDelete.TabIndex = 44;
             this.lblScriptDelete.Text = "Tasks Delete: 0 Seconds Upon Run";
             // 
             // lblConsoleText
@@ -537,7 +537,7 @@ namespace GarrysModWorkshopUtility
             this.lblConsoleText.Location = new System.Drawing.Point(529, 477);
             this.lblConsoleText.Name = "lblConsoleText";
             this.lblConsoleText.Size = new System.Drawing.Size(209, 43);
-            this.lblConsoleText.TabIndex = 58;
+            this.lblConsoleText.TabIndex = 59;
             this.lblConsoleText.Text = "Output";
             this.lblConsoleText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -550,7 +550,7 @@ namespace GarrysModWorkshopUtility
             this.conControl.SendKeyboardCommandsToProcess = false;
             this.conControl.ShowDiagnostics = true;
             this.conControl.Size = new System.Drawing.Size(1246, 360);
-            this.conControl.TabIndex = 59;
+            this.conControl.TabIndex = 60;
             this.conControl.TabStop = false;
             // 
             // btnClearConsole
@@ -591,7 +591,7 @@ namespace GarrysModWorkshopUtility
             this.lblListOfAddons.Location = new System.Drawing.Point(746, 248);
             this.lblListOfAddons.Name = "lblListOfAddons";
             this.lblListOfAddons.Size = new System.Drawing.Size(209, 43);
-            this.lblListOfAddons.TabIndex = 47;
+            this.lblListOfAddons.TabIndex = 48;
             this.lblListOfAddons.Text = "Addon List";
             this.lblListOfAddons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -602,7 +602,7 @@ namespace GarrysModWorkshopUtility
             this.lstAddons.Location = new System.Drawing.Point(638, 295);
             this.lstAddons.Name = "lstAddons";
             this.lstAddons.Size = new System.Drawing.Size(432, 147);
-            this.lstAddons.TabIndex = 48;
+            this.lstAddons.TabIndex = 49;
             // 
             // tmrFillAddons
             // 
@@ -615,7 +615,7 @@ namespace GarrysModWorkshopUtility
             this.btnLoadAddonList.Location = new System.Drawing.Point(1094, 330);
             this.btnLoadAddonList.Name = "btnLoadAddonList";
             this.btnLoadAddonList.Size = new System.Drawing.Size(149, 26);
-            this.btnLoadAddonList.TabIndex = 53;
+            this.btnLoadAddonList.TabIndex = 54;
             this.btnLoadAddonList.Text = "Load Addons";
             this.btnLoadAddonList.UseVisualStyleBackColor = true;
             this.btnLoadAddonList.Click += new System.EventHandler(this.btnLoadAddonList_Click);
@@ -626,7 +626,7 @@ namespace GarrysModWorkshopUtility
             this.btnClearAddons.Location = new System.Drawing.Point(1094, 442);
             this.btnClearAddons.Name = "btnClearAddons";
             this.btnClearAddons.Size = new System.Drawing.Size(149, 26);
-            this.btnClearAddons.TabIndex = 57;
+            this.btnClearAddons.TabIndex = 58;
             this.btnClearAddons.Text = "Clear Addon List";
             this.btnClearAddons.UseVisualStyleBackColor = true;
             this.btnClearAddons.Click += new System.EventHandler(this.btnClearAddons_Click);
@@ -637,7 +637,7 @@ namespace GarrysModWorkshopUtility
             this.lblListCommands.Location = new System.Drawing.Point(1087, 284);
             this.lblListCommands.Name = "lblListCommands";
             this.lblListCommands.Size = new System.Drawing.Size(166, 43);
-            this.lblListCommands.TabIndex = 52;
+            this.lblListCommands.TabIndex = 53;
             this.lblListCommands.Text = "Commands";
             this.lblListCommands.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -647,7 +647,7 @@ namespace GarrysModWorkshopUtility
             this.lblListCommandTop.Location = new System.Drawing.Point(1128, 254);
             this.lblListCommandTop.Name = "lblListCommandTop";
             this.lblListCommandTop.Size = new System.Drawing.Size(84, 43);
-            this.lblListCommandTop.TabIndex = 51;
+            this.lblListCommandTop.TabIndex = 52;
             this.lblListCommandTop.Text = "List";
             this.lblListCommandTop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -657,7 +657,7 @@ namespace GarrysModWorkshopUtility
             this.btnUseAddonID.Location = new System.Drawing.Point(1094, 386);
             this.btnUseAddonID.Name = "btnUseAddonID";
             this.btnUseAddonID.Size = new System.Drawing.Size(149, 26);
-            this.btnUseAddonID.TabIndex = 55;
+            this.btnUseAddonID.TabIndex = 56;
             this.btnUseAddonID.Text = "Use Addon ID";
             this.btnUseAddonID.UseVisualStyleBackColor = true;
             this.btnUseAddonID.Click += new System.EventHandler(this.btnUseAddonID_Click);
@@ -668,7 +668,7 @@ namespace GarrysModWorkshopUtility
             this.btnSearchAddon.Location = new System.Drawing.Point(1094, 358);
             this.btnSearchAddon.Name = "btnSearchAddon";
             this.btnSearchAddon.Size = new System.Drawing.Size(149, 26);
-            this.btnSearchAddon.TabIndex = 54;
+            this.btnSearchAddon.TabIndex = 55;
             this.btnSearchAddon.Text = "Search Addon";
             this.btnSearchAddon.UseVisualStyleBackColor = true;
             this.btnSearchAddon.Click += new System.EventHandler(this.btnSearchAddon_Click);
@@ -679,7 +679,7 @@ namespace GarrysModWorkshopUtility
             this.lblSearchAddon.Location = new System.Drawing.Point(635, 448);
             this.lblSearchAddon.Name = "lblSearchAddon";
             this.lblSearchAddon.Size = new System.Drawing.Size(88, 16);
-            this.lblSearchAddon.TabIndex = 49;
+            this.lblSearchAddon.TabIndex = 50;
             this.lblSearchAddon.Text = "Search Addon:";
             // 
             // txtSearchAddon
@@ -687,7 +687,7 @@ namespace GarrysModWorkshopUtility
             this.txtSearchAddon.Location = new System.Drawing.Point(720, 445);
             this.txtSearchAddon.Name = "txtSearchAddon";
             this.txtSearchAddon.Size = new System.Drawing.Size(350, 22);
-            this.txtSearchAddon.TabIndex = 50;
+            this.txtSearchAddon.TabIndex = 51;
             // 
             // lblLoadingProgress
             // 
@@ -695,7 +695,7 @@ namespace GarrysModWorkshopUtility
             this.lblLoadingProgress.Location = new System.Drawing.Point(636, 275);
             this.lblLoadingProgress.Name = "lblLoadingProgress";
             this.lblLoadingProgress.Size = new System.Drawing.Size(137, 16);
-            this.lblLoadingProgress.TabIndex = 46;
+            this.lblLoadingProgress.TabIndex = 47;
             this.lblLoadingProgress.Text = "Addon List Not Loaded";
             // 
             // btnClearSearch
@@ -704,7 +704,7 @@ namespace GarrysModWorkshopUtility
             this.btnClearSearch.Location = new System.Drawing.Point(1094, 414);
             this.btnClearSearch.Name = "btnClearSearch";
             this.btnClearSearch.Size = new System.Drawing.Size(149, 26);
-            this.btnClearSearch.TabIndex = 56;
+            this.btnClearSearch.TabIndex = 57;
             this.btnClearSearch.Text = "Clear Search";
             this.btnClearSearch.UseVisualStyleBackColor = true;
             this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
@@ -748,7 +748,7 @@ namespace GarrysModWorkshopUtility
             this.btnReloadProgram.Location = new System.Drawing.Point(368, 472);
             this.btnReloadProgram.Name = "btnReloadProgram";
             this.btnReloadProgram.Size = new System.Drawing.Size(149, 26);
-            this.btnReloadProgram.TabIndex = 60;
+            this.btnReloadProgram.TabIndex = 42;
             this.btnReloadProgram.Text = "Reload Program";
             this.btnReloadProgram.UseVisualStyleBackColor = true;
             this.btnReloadProgram.Click += new System.EventHandler(this.btnReloadProgram_Click);
@@ -908,4 +908,3 @@ namespace GarrysModWorkshopUtility
         private System.Windows.Forms.Button btnReloadProgram;
     }
 }
-
