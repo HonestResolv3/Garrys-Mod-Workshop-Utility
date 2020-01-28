@@ -800,7 +800,7 @@ namespace GarrysModWorkshopUtility
             {
                 if (lstQueue.Items.Count >= 0)
                 {
-                    String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete the first task from the queue? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
+                    String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete the first task from the queue?\n\nType \"y\" for yes or \"n\" for no, press the X to cancel the removal", "Notice");
                     choice = choice.ToLower();
                     if (choice.Equals("y"))
                     {
@@ -846,7 +846,7 @@ namespace GarrysModWorkshopUtility
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
-            String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete all tasks from the queue? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
+            String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete all tasks from the queue?\n\nType \"y\" for yes or \"n\" for no, press the X to cancel the removal", "Notice");
             choice = choice.ToLower();
             if (choice.Equals("y"))
             {
@@ -1092,6 +1092,25 @@ namespace GarrysModWorkshopUtility
             {
                 GarrysModWorkshopUtil.PastTasks pastTasks = new GarrysModWorkshopUtil.PastTasks(allTasks, this);
                 pastTasks.Show();
+            }
+        }
+
+
+        private void btnReloadProgram_Click(object sender, EventArgs e)
+        {
+            String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to reload the program?\n\nThis clears memory but it WILL erase your current tasks\n\nType \"y\" for yes or \"n\" for no, press the X to cancel", "Notice");
+            choice = choice.ToLower();
+            if (choice.Equals("y"))
+            {
+                Application.Restart();
+            }
+            else if (choice.Equals("") || choice.Equals("n"))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Please enter either 'y' or 'n'!", "Error");
             }
         }
 
@@ -1666,7 +1685,7 @@ namespace GarrysModWorkshopUtility
                     }
                     break;
                 case 3:
-                    txtGMAOutput.Text = form.gmaOutputLocation;
+                    txtGMALocation.Text = form.gmaOutputLocation;
                     txtAddonFolderLocation.Text = form.addonInput;
                     txtGMadFolderLocation.Text = form.exeFolderLocation;
                     break;
@@ -1674,14 +1693,20 @@ namespace GarrysModWorkshopUtility
                     txtGMALocation.Text = form.addonInput;
                     txtGMadFolderLocation.Text = form.exeFolderLocation;
                     txtIconFolderLocation.Text = form.iconLocation;
+                    imagePath = form.iconLocation;
+                    updateIconPreview();
+                    imagePath = null;
                     break;
                 case 5:
-                    txtAddonFolderLocation.Text = form.addonInput;
+                    txtGMALocation.Text = form.addonInput;
                     txtGMadFolderLocation.Text = form.exeFolderLocation;
                     txtAddonIDNumber.Text = form.addonID.ToString();
                     break;
                 case 6:
                     txtIconFolderLocation.Text = form.iconLocation;
+                    imagePath = form.iconLocation;
+                    updateIconPreview();
+                    imagePath = null;
                     txtGMadFolderLocation.Text = form.exeFolderLocation;
                     txtAddonIDNumber.Text = form.addonID.ToString();
                     break;
