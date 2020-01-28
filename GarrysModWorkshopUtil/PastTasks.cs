@@ -62,7 +62,7 @@ namespace GarrysModWorkshopUtil
                 if (testTask.getName().Equals("Create .JSON"))
                 {
                     string wildcards = "";
-                    if (testTask.wildCards.Count == 0)
+                    if (!(testTask.wildCards.Count == 0))
                     {
                         foreach (String wildcard in testTask.wildCards)
                         {
@@ -83,7 +83,7 @@ namespace GarrysModWorkshopUtil
                 }
                 else if (testTask.getName().Equals("Publish Addon"))
                 {
-                    MessageBox.Show("Icon Location: " + testTask.iconLocation + "\n\nGMPublish.EXE Location: " + testTask.gMadLocation + "\n\nGMA Filename: " + testTask.gmaName + "\n\nGMA Location: " + testTask.gmaLocation + "\n\nNotes: " + testTask.TaskNotes, "Publish Addon Task Info");
+                    MessageBox.Show("Icon Location: " + testTask.iconLocation + "\n\nGMPublish.EXE Location: " + testTask.gMadLocation + "\n\nGMA Location: " + testTask.gmaLocation + "\n\nNotes: " + testTask.TaskNotes, "Publish Addon Task Info");
                 }
                 else if (testTask.getName().Equals("Update Addon"))
                 {
@@ -109,7 +109,7 @@ namespace GarrysModWorkshopUtil
             }
             else
             {
-                String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete this task? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
+                String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete this task?\n\nType \"y\" for yes or \"n\" for no, press the X to cancel the removal", "Notice");
                 choice = choice.ToLower();
                 if (choice.Equals("y"))
                 {
@@ -135,7 +135,7 @@ namespace GarrysModWorkshopUtil
             }
             else
             {
-                String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete all tasks? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
+                String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete all tasks?\n\nType \"y\" for yes or \"n\" for no, press the X to cancel the removal", "Notice");
                 choice = choice.ToLower();
                 if (choice.Equals("y"))
                 {
