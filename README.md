@@ -4,9 +4,12 @@
 
 A C# based program to make publishing, extracting, and updating easier in Garry's Mod
 
-![The_Program](https://i.imgur.com/ycgBcbD.jpg)
+![The_Program](https://i.imgur.com/I6CBUbq.jpg)
 
 Features:
+- Addon Loader
+- Past Task Viewer
+- Program Reloading
 - Output Console
 - Task + Queue System
 - Automatic or Manual Task Running
@@ -29,3 +32,4 @@ Credits:
 - Myself: Programming, Designing, Testing
 - Ak47toh: Testing
 - Hidden: Testing
+- Helios: Testing
