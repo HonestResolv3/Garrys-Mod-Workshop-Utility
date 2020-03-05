@@ -305,8 +305,15 @@ namespace GarrysModWorkshopUtility
 
         private void btnDirectoryOfJSon_Click(object sender, EventArgs e)
         {
-            GarrysModWorkshopUtil.AddonJsonUI newJsonUI = new GarrysModWorkshopUtil.AddonJsonUI(this);
-            newJsonUI.Show();
+            if (GarrysModWorkshopUtil.AddonJsonUI.windowIsOpen == true)
+            {
+
+            }
+            else
+            {
+                GarrysModWorkshopUtil.AddonJsonUI newJsonUI = new GarrysModWorkshopUtil.AddonJsonUI(this);
+                newJsonUI.Show();
+            }
         }
 
         private void btnGMALocation_Click(object sender, EventArgs e)
@@ -371,9 +378,9 @@ namespace GarrysModWorkshopUtility
             }
         }
 
-        private void btnJSonName_Click(object sender, EventArgs e)
+        private void btnPresetLoader_Click(object sender, EventArgs e)
         {
-            String newAddonNameinJSON = Microsoft.VisualBasic.Interaction.InputBox("What is the name of this addon?", "Enter addon name");
+            GarrysModWorkshopUtil.PresetLoader newPresetLoader = new GarrysModWorkshopUtil.PresetLoader(this);
         }
 
         private void btnCredits_Click(object sender, EventArgs e)
@@ -812,14 +819,15 @@ namespace GarrysModWorkshopUtility
                                 catch (Exception)
                                 {
                                     MessageBox.Show("You are trying to run the program with invalid input, please do not do that.", "Error");
-                                    lstQueue.Items.RemoveAt(0);
-                                    tasks.RemoveAt(0);
+                                    lstQueue.Items.RemoveAt(lstQueue.Items.Count - 1);
+                                    tasks.RemoveAt(lstQueue.Items.Count - 1);
+                                    allTasks.RemoveAt(lstQueue.Items.Count - 1);
                                 }
                             }
                         }
                     }
                     break;
-                case 2:
+                case 1:
                     if (GarrysModWorkshopUtil.PastTasks.taskWindowIsOpen == true)
                     {
 
@@ -830,7 +838,7 @@ namespace GarrysModWorkshopUtility
                         pastTasks.Show();
                     }
                     break;
-                case 3:
+                case 2:
                     MessageBox.Show("You have come across the help page, this page will help you understand how to use the program"
                          + "\n\nStep 1: Choose one of the 7 tasks on the left under \"Task Options\" (For \"Create Preset\" you cannot add it to the queue)"
                          + "\n\nStep 2: Look at the program parameters for each task, this is what the task requires when you run the task"
@@ -842,7 +850,7 @@ namespace GarrysModWorkshopUtility
                          + "\n\nOptional Step 7: You can modify time by selecting either \"Modify Task Time\" or \"Modify Auto-Run Time\" in \"Time Commands\""
                          + "\n\nOptional Step 8: You can view the about page, reload the program, reset resizing through the \"Main Program Commands\" and click \"Run Command\"", "Welcome to the Garry's Mod Workshop Utility help page!");
                     break;
-                case 4:
+                case 3:
                     if (GarrysModWorkshopUtil.AboutPage.creditsWindowIsOpen == true)
                     {
 
@@ -853,11 +861,11 @@ namespace GarrysModWorkshopUtility
                         newAboutPage.Show();
                     }
                     break;
-                case 5:
+                case 4:
                     this.WindowState = FormWindowState.Normal;
                     this.Size = new Size(1286, 937);
                     break;
-                case 6:
+                case 5:
                     String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to reload the program?\n\nThis clears memory but it WILL erase your current tasks\n\nType \"y\" for yes or \"n\" for no, press the X to cancel", "Notice");
                     choice = choice.ToLower();
                     if (choice.Equals("y"))
@@ -886,22 +894,19 @@ namespace GarrysModWorkshopUtility
 
         private void btnLoadAddonList_Click(object sender, EventArgs e)
         {
-            if (isProgramRunningGMPublish == false)
-            {
-                MessageBox.Show("You cannot run this task if your bin folder is looking at GMad.exe!", "Error");
-            }
-            else if (txtGMadFolderLocation.Text.Equals(""))
+            if (txtGMadFolderLocation.Text.Equals(""))
             {
                 MessageBox.Show("Please enter in the path leading to GMPublish.exe!", "Error");
             }
             else
             {
+                String formattedDirectory = txtGMadFolderLocation.Text.Substring(0, txtGMadFolderLocation.Text.LastIndexOf("\\")) + "\\gmpublish.exe";
                 try
                 {
                     forAddonList.Clear();
                     newStringList.Clear();
                     lstAddons.Items.Clear();
-                    var processInfo = new ProcessStartInfo(txtGMadFolderLocation.Text, "list");
+                    var processInfo = new ProcessStartInfo(formattedDirectory, "list");
                     processInfo.CreateNoWindow = true;
                     processInfo.UseShellExecute = false;
                     processInfo.RedirectStandardError = true;
@@ -975,7 +980,7 @@ namespace GarrysModWorkshopUtility
                 int index = 0;
                 foreach (String line in forAddonList)
                 {
-                    if (line.Contains(input))
+                    if (line.IndexOf(input, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         wordsWithSearch.Add(line.Trim());
                         lstAddons.Items.Add((string)wordsWithSearch[index]);
@@ -988,21 +993,9 @@ namespace GarrysModWorkshopUtility
 
         private void btnClearSearch_Click(object sender, EventArgs e)
         {
-            bool allowedToClearSearch = false;
-            if (newStringList.Count == 0)
-            {
-                MessageBox.Show("You cannot use this until you load the addon list!", "Error");
-            }
-            else if (!txtGMadFolderLocation.Text.Contains("gmpublish.exe"))
-            {
-                MessageBox.Show("You cannot use this if your program is looking at GMad.exe!", "Error");
-            }
-            else
-            {
-                txtSearchAddon.Text = "";
-                lstAddons.Items.Clear();
-                tmrFillAddons.Start();
-            }
+            txtSearchAddon.Text = "";
+            lstAddons.Items.Clear();
+            tmrFillAddons.Start();
         }
 
         private void radCreateGma_CheckedChanged(object sender, EventArgs e)
@@ -1353,6 +1346,11 @@ namespace GarrysModWorkshopUtility
             GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime = autoRunDeleteTime;
             GarrysModWorkshopUtil.Properties.Settings.Default.AutoDeleteScriptTime = formattedTime;
 
+            GarrysModWorkshopUtil.Properties.Settings.Default.QueueCommandSelection = cboxQueueModifyCommands.SelectedIndex;
+            GarrysModWorkshopUtil.Properties.Settings.Default.TimeCommandSelection = cboxTimeModifyCommands.SelectedIndex;
+            GarrysModWorkshopUtil.Properties.Settings.Default.ClearingCommandSelection = cboxClearCommander.SelectedIndex;
+            GarrysModWorkshopUtil.Properties.Settings.Default.MainProgramCommandSelection = cboxMainProgramCommands.SelectedIndex;
+
             if (radCreateGma.Checked)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 1;
@@ -1445,6 +1443,11 @@ namespace GarrysModWorkshopUtility
 
         private void loadUserInput()
         {
+            cboxQueueModifyCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.QueueCommandSelection;
+            cboxTimeModifyCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.TimeCommandSelection;
+            cboxClearCommander.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.ClearingCommandSelection;
+            cboxMainProgramCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.MainProgramCommandSelection;
+
             switch (GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked)
             {
                 case 1:
@@ -1723,6 +1726,8 @@ namespace GarrysModWorkshopUtility
 
         private void tmrFillAddons_Tick(object sender, EventArgs e)
         {
+            lstAddons.Items.Clear();
+            forAddonList.Clear();
             try
             {
                 int index = 0;
@@ -1831,10 +1836,6 @@ namespace GarrysModWorkshopUtility
                 GarrysModWorkshopUtil.Properties.Settings.Default.EnableDarkMode = false;
             }
         }
-
-        private void txtDirectoryOfJSon_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
+
