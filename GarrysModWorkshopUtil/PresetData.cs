@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,8 +15,9 @@ namespace GarrysModWorkshopUtil
         private string gmaOutput;
         private string addonID;
         private string presetName;
+        private string currentDirectory;
 
-        public PresetData(string preName, string addon, string addonIcon, string exe, string gmaLoc, string gmaOut, string id)
+        public PresetData(string preName, string addon, string addonIcon, string exe, string gmaLoc, string gmaOut, string id, string dir)
         {
             presetName = preName;
             addonInput = addon;
@@ -25,6 +26,7 @@ namespace GarrysModWorkshopUtil
             gmaLocInput = gmaLoc;
             gmaOutput = gmaOut;
             addonID = id;
+            currentDirectory = dir;
         }
 
         public string getAddonInput()
@@ -60,6 +62,11 @@ namespace GarrysModWorkshopUtil
         public string getPresetName()
         {
             return presetName;
+        }
+
+        public string getDirectory()
+        {
+            return currentDirectory;
         }
 
         public override String ToString()
