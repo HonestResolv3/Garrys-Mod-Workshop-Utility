@@ -1,4 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +17,7 @@ namespace GarrysModWorkshopUtil
         public GarrysModWorkshopUtility.frmGarrysModWorkshopUtility programSender;
         public static bool presetWindowIsOpen = false;
         ArrayList presets = new ArrayList();
+        string[] files;
         public PresetLoader(GarrysModWorkshopUtility.frmGarrysModWorkshopUtility form)
         {
             InitializeComponent();
@@ -99,33 +100,30 @@ namespace GarrysModWorkshopUtil
 
         private void btnViewPresetInfo_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int index = lstPresets.SelectedIndex;
-                if (lstPresets.SelectedIndex < 0 && lstPresets.Items.Count != 0)
-                {
-                    index = 0;
-                }
-
-                GarrysModWorkshopUtil.PresetData newData = (GarrysModWorkshopUtil.PresetData)presets[lstPresets.SelectedIndex];
-                txtAddonFolderLocationPreset.Text = newData.getAddonInput();
-                txtIconFolderLocationPreset.Text = newData.getAddonIconInput();
-                txtAddonIDNumberPreset.Text = newData.getAddonID();
-                txtGMadFolderLocationPreset.Text = newData.getExeInput();
-                txtGMALocationPreset.Text = newData.getGMALocInput();
-                txtGMAOutputPreset.Text = newData.getGMAOutput();
-                txtPresetName.Text = newData.getPresetName();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("You may have attenpted to load a preset after it was deleted, do not do that", "Error");
-            }
+            readPreset();
         }
 
 
         private void btnSendBackToMain_Click(object sender, EventArgs e)
         {
-            programSender.
+            readPreset();
+            programSender.addonInput = txtAddonFolderLocationPreset.Text;
+            programSender.exeFolderLocation = txtGMadFolderLocationPreset.Text;
+            programSender.iconLocation = txtIconFolderLocationPreset.Text;
+            programSender.gmaOutputLocation = txtGMALocationPreset.Text;
+            if (!(txtAddonFolderLocationPreset.Text.Equals("")))
+            {
+                try
+                {
+                    programSender.addonID = Int64.Parse(txtAddonIDNumberPreset.Text);
+                }
+                catch (Exception)
+                {
+                    programSender.addonID = 000000000;
+                }
+            }
+            programSender.addonOutput = txtGMAOutputPreset.Text;
+            programSender.receiveTaskInfo(programSender, 7);
         }
 
         private void loadPresets()
@@ -138,7 +136,7 @@ namespace GarrysModWorkshopUtil
             {
                 try
                 {
-                    string[] files = System.IO.Directory.GetFiles(txtPresetLocation.Text, "*.gmwu_preset");
+                    files = System.IO.Directory.GetFiles(txtPresetLocation.Text, "*.gmwu_preset");
                     if (files.Length != 0)
                     {
                         presets.Clear();
@@ -154,10 +152,11 @@ namespace GarrysModWorkshopUtil
                             string gmaLoc = fileReader.ReadLine();
                             string gmaOutput = fileReader.ReadLine();
                             string addonIDNumber = fileReader.ReadLine();
-                            presets.Add(new PresetData(presetName, addonInput, iconLocationInput, exePath, gmaLoc, gmaOutput, addonIDNumber));
+                            presets.Add(new PresetData(presetName, addonInput, iconLocationInput, exePath, gmaLoc, gmaOutput, addonIDNumber, file));
                             lstPresets.Items.Add(presets[index]);
                             index++;
                             btnViewPresetInfo.Enabled = true;
+                            fileReader.Dispose();
                         }
                     }
                 }
@@ -212,7 +211,7 @@ namespace GarrysModWorkshopUtil
             if (findProperIcon.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 System.Drawing.Image imageReader = System.Drawing.Image.FromFile(findProperIcon.FileName);
-                if ((imageReader.Width < 512 || imageReader.Width > 512) || (imageReader.Height < 512 || imageReader.Height > 512))
+                if ((imageReader.Width != 512) || (imageReader.Height != 512))
                 {
                     MessageBox.Show("This kind of jpg file is not valid!\n\nValid files must be 512x512 in size", "Error");
                 }
@@ -270,12 +269,43 @@ namespace GarrysModWorkshopUtil
 
         private void btnGMALocation_Click(object sender, EventArgs e)
         {
+            CommonOpenFileDialog findProperGMA = new CommonOpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse GMA file",
+                RestoreDirectory = true,
+            };
 
+            findProperGMA.IsFolderPicker = false;
+            findProperGMA.Filters.Add(new CommonFileDialogFilter("Garry's Mod Addon Files", "*.gma"));
+            findProperGMA.InitialDirectory = txtGMALocationPreset.Text;
+
+            if (findProperGMA.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                txtGMALocationPreset.Text = findProperGMA.FileName;
+                findProperGMA = null;
+                GC.Collect();
+            }
         }
 
         private void btnGMAOutput_Click(object sender, EventArgs e)
         {
+            CommonOpenFileDialog findProperFolder = new CommonOpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse output .gma folder",
+                RestoreDirectory = true,
+            };
 
+            findProperFolder.IsFolderPicker = true;
+            findProperFolder.InitialDirectory = txtGMALocationPreset.Text;
+
+            if (findProperFolder.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                txtGMAOutputPreset.Text = findProperFolder.FileName;
+                findProperFolder = null;
+                GC.Collect();
+            }
         }
 
         private void btnAddonID_Click(object sender, EventArgs e)
@@ -304,6 +334,72 @@ namespace GarrysModWorkshopUtil
                 {
                     txtAddonIDNumberPreset.Text = id;
                 }
+            }
+        }
+
+
+        private void btnDeletePreset_Click(object sender, EventArgs e)
+        {
+            if (lstPresets.Items.Count == 0)
+            {
+                MessageBox.Show("You cannot delete nothing!", "Error");
+            }
+            else if ((lstPresets.SelectedIndex < 0 || lstPresets.SelectedIndex > lstPresets.Items.Count))
+            {
+                MessageBox.Show("Select a valid preset!", "Error");
+            }
+            else
+            {
+                lstPresets.SelectedIndex = 0;
+                String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete this preset from the list? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
+                choice = choice.ToLower();
+                if (choice.Equals("y"))
+                {
+                    try
+                    {
+                        int index = lstPresets.SelectedIndex;
+                        File.Delete(files[index]);
+                        files[index] = "";
+                        lstPresets.Items.RemoveAt(index);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("An error occured when trying to delete the file, it may not exist or it is invalid", "Error");
+                    }
+                }
+                else if (choice.Equals("") || choice.Equals("n"))
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Please enter either 'y' or 'n'!", "Error");
+                }
+            }
+        }
+
+        private void readPreset()
+        {
+            try
+            {
+                int index = lstPresets.SelectedIndex;
+                if (lstPresets.SelectedIndex < 0 && lstPresets.Items.Count != 0)
+                {
+                    index = 0;
+                }
+
+                GarrysModWorkshopUtil.PresetData newData = (GarrysModWorkshopUtil.PresetData)presets[lstPresets.SelectedIndex];
+                txtAddonFolderLocationPreset.Text = newData.getAddonInput();
+                txtIconFolderLocationPreset.Text = newData.getAddonIconInput();
+                txtAddonIDNumberPreset.Text = newData.getAddonID();
+                txtGMadFolderLocationPreset.Text = newData.getExeInput();
+                txtGMALocationPreset.Text = newData.getGMALocInput();
+                txtGMAOutputPreset.Text = newData.getGMAOutput();
+                txtPresetName.Text = newData.getPresetName();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("You may have attenpted to load a preset after it was deleted, do not do that", "Error");
             }
         }
     }
