@@ -49,30 +49,34 @@ namespace GarrysModWorkshopUtil
             }
             else
             {
-                CommonOpenFileDialog whereToSave = new CommonOpenFileDialog()
+                if (txtPresetLocation.Text.Equals(""))
                 {
-                    InitialDirectory = @"C:\",
-                    IsFolderPicker = true,
-                    RestoreDirectory = true,
-                    Title = "Where to save preset?"
-                };
+                    CommonOpenFileDialog whereToSave = new CommonOpenFileDialog()
+                    {
+                        InitialDirectory = @"C:\",
+                        IsFolderPicker = true,
+                        RestoreDirectory = true,
+                        Title = "Where to save preset?"
+                    };
 
-                if (whereToSave.ShowDialog() == CommonFileDialogResult.Ok)
+                    if (whereToSave.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        savePreset();
+                    }
+                }
+                else
                 {
-                    StreamWriter presetWriter = new StreamWriter(whereToSave.FileName + "\\" + txtPresetName.Text + ".gmwu_preset");
-                    presetWriter.WriteLine(txtPresetName.Text);
-                    presetWriter.WriteLine(txtAddonFolderLocationPreset.Text);
-                    presetWriter.WriteLine(txtIconFolderLocationPreset.Text);
-                    presetWriter.WriteLine(txtGMadFolderLocationPreset.Text);
-                    presetWriter.WriteLine(txtGMALocationPreset.Text);
-                    presetWriter.WriteLine(txtGMAOutputPreset.Text);
-                    presetWriter.WriteLine(txtAddonIDNumberPreset.Text);
-                    presetWriter.WriteLine("DO NOT MODIFY THIS FILE, UNEXPECTED OUTPUTS WILL OCCUR");
-                    presetWriter.Close();
-                    presetWriter = null;
-                    MessageBox.Show("Preset saved successfully!", "Notice");
+                    if (Directory.Exists(txtPresetLocation.Text))
+                    {
+                        savePreset();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter a valid path!");
+                    }
                 }
             }
+            loadPresets();
         }
 
         private void btnLoadPreset_Click(object sender, EventArgs e)
@@ -106,11 +110,19 @@ namespace GarrysModWorkshopUtil
 
         private void btnSendBackToMain_Click(object sender, EventArgs e)
         {
+            if (lstPresets.Items.Count == 0)
+            {
+                MessageBox.Show("You cannot load 0 presets!", "Error");
+            }
+            else if (lstPresets.SelectedIndex < 0 || lstPresets.SelectedIndex > lstPresets.Items.Count)
+            {
+                lstPresets.SelectedIndex = 0;
+            }
             readPreset();
             programSender.addonInput = txtAddonFolderLocationPreset.Text;
             programSender.exeFolderLocation = txtGMadFolderLocationPreset.Text;
             programSender.iconLocation = txtIconFolderLocationPreset.Text;
-            programSender.gmaOutputLocation = txtGMALocationPreset.Text;
+            programSender.gmaOutputLocation = txtGMAOutputPreset.Text;
             if (!(txtAddonFolderLocationPreset.Text.Equals("")))
             {
                 try
@@ -122,17 +134,13 @@ namespace GarrysModWorkshopUtil
                     programSender.addonID = 000000000;
                 }
             }
-            programSender.addonOutput = txtGMAOutputPreset.Text;
+            programSender.addonOutput = txtGMALocationPreset.Text;
             programSender.receiveTaskInfo(programSender, 7);
         }
 
         private void loadPresets()
         {
-            if (txtPresetLocation.Text.Equals(""))
-            {
-                MessageBox.Show("You cannot use this until you load a folder in!", "Error");
-            }
-            else
+            if (Directory.Exists(txtPresetLocation.Text))
             {
                 try
                 {
@@ -168,7 +176,7 @@ namespace GarrysModWorkshopUtil
                 {
                     MessageBox.Show("An unexpected error happened", "Error");
                 }
-            }
+            }  
         }
 
         private void btnFolderLocation_Click(object sender, EventArgs e)
@@ -344,13 +352,16 @@ namespace GarrysModWorkshopUtil
             {
                 MessageBox.Show("You cannot delete nothing!", "Error");
             }
-            else if ((lstPresets.SelectedIndex < 0 || lstPresets.SelectedIndex > lstPresets.Items.Count))
+            else if (lstPresets.SelectedIndex > lstPresets.Items.Count)
             {
                 MessageBox.Show("Select a valid preset!", "Error");
             }
             else
             {
-                lstPresets.SelectedIndex = 0;
+                if (lstPresets.SelectedIndex < 0)
+                {
+                    lstPresets.SelectedIndex = 0;
+                }
                 String choice = Microsoft.VisualBasic.Interaction.InputBox("Are you sure you want to delete this preset from the list? (Type \"y\" for yes or \"n\" for no, press the X to cancel the removal) ", "Notice");
                 choice = choice.ToLower();
                 if (choice.Equals("y"))
@@ -401,6 +412,24 @@ namespace GarrysModWorkshopUtil
             {
                 MessageBox.Show("You may have attenpted to load a preset after it was deleted, do not do that", "Error");
             }
+        }
+
+        private void savePreset()
+        {
+            StreamWriter presetWriter = new StreamWriter(txtPresetLocation.Text + "\\" + txtPresetName.Text + ".gmwu_preset");
+            presetWriter.WriteLine(txtPresetName.Text);
+            presetWriter.WriteLine(txtAddonFolderLocationPreset.Text);
+            presetWriter.WriteLine(txtIconFolderLocationPreset.Text);
+            presetWriter.WriteLine(txtGMadFolderLocationPreset.Text);
+            presetWriter.WriteLine(txtGMALocationPreset.Text);
+            presetWriter.WriteLine(txtGMAOutputPreset.Text);
+            presetWriter.WriteLine(txtAddonIDNumberPreset.Text);
+            presetWriter.WriteLine("DO NOT MODIFY THIS FILE, UNEXPECTED OUTPUTS WILL OCCUR");
+            presetWriter.Close();
+            presetWriter.Dispose();
+            presetWriter = null;
+            GC.Collect();
+            MessageBox.Show("Preset saved successfully!", "Notice");
         }
     }
 }
