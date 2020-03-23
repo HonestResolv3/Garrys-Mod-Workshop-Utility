@@ -53,8 +53,10 @@ namespace GarrysModWorkshopUtility
         public static bool enableCommandPause = false;
 
         public bool ignoreNotices = false;
+        static bool taskPreventerEnabled;
         bool isProgramRunningGMPublish = false;
         string[] lines;
+        int timerCounter = 0;
 
         String[] addonTypes = { "ServerContent", "gamemode", "map", "weapon", "vehicle", "npc", "tool", "effects", "model" };
         String[] addonTags = { "fun", "roleplay", "scenic", "movie", "realism", "cartoon", "water", "comic", "build" };
@@ -79,13 +81,15 @@ namespace GarrysModWorkshopUtility
             startProgramEffects();
             makeControlsTransparent();
             loadUserInput();
-            cboxQueueModifyCommands.SelectedIndex = 0;
-            cboxTimeModifyCommands.SelectedIndex = 0;
-            cboxClearCommander.SelectedIndex = 0;
-            cboxMainProgramCommands.SelectedIndex = 0;
+            cboxQueueModifyCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.QueueCommandSelection;
+            cboxTimeModifyCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.TimeCommandSelection;
+            cboxClearCommander.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.ClearingCommandSelection;
+            cboxMainProgramCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.MainProgramCommandSelection;
+            cboxTaskOptions.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.TaskOptionsSelection;
+
             if (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime == 0)
             {
-                timeToStartTask.Interval = (int) (60 / 0.001);
+                timeToStartTask.Interval = (int)(60 / 0.001);
                 GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime = (int)(60 / 0.001);
                 lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime / 0.001) + " seconds";
             }
@@ -93,12 +97,12 @@ namespace GarrysModWorkshopUtility
             else
             {
                 timeToStartTask.Interval = GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime;
-                lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime / 0.001) + " seconds";
+                lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime * 0.001) + " seconds";
             }
 
             if (chkAutoRun.Checked)
             {
-                lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime / 0.001) + " seconds";
+                lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime * 0.001) + " seconds";
             }
 
             else
@@ -126,10 +130,6 @@ namespace GarrysModWorkshopUtility
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskChecked = false;
             }
-        }
-        private void btnAddToQueue_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void btnAddonID_Click(object sender, EventArgs e)
@@ -168,11 +168,11 @@ namespace GarrysModWorkshopUtility
         {
             if (ignoreNotices == false)
             {
-                if (radExtractGMA.Checked)
+                if (cboxTaskOptions.SelectedIndex == 1)
                 {
                     MessageBox.Show("Remember to put the extracted contents in a good place you can remember", "Notice");
                 }
-                
+
                 else
                 {
                     MessageBox.Show("Remember to make sure your addon folder has a file named \"addon.json\" in it", "Notice");
@@ -220,9 +220,9 @@ namespace GarrysModWorkshopUtility
             findProperIcon.InitialDirectory = txtIconFolderLocation.Text;
 
             if (findProperIcon.ShowDialog() == CommonFileDialogResult.Ok)
-                {
+            {
                 System.Drawing.Image imageReader = System.Drawing.Image.FromFile(findProperIcon.FileName);
-                if ((imageReader.Width < 512 || imageReader.Width > 512) || (imageReader.Height < 512 || imageReader.Height > 512))
+                if ((imageReader.Width != 512) || (imageReader.Height != 512))
                 {
                     MessageBox.Show("This kind of jpg file is not valid!\n\nValid files must be 512x512 in size", "Error");
                 }
@@ -320,12 +320,12 @@ namespace GarrysModWorkshopUtility
         {
             if (ignoreNotices == false)
             {
-                if (radExtractGMA.Checked)
+                if (cboxTaskOptions.SelectedIndex == 1)
                 {
                     MessageBox.Show("Remember to pick a valid .gma file the program can read", "Notice");
                 }
 
-                else if (radUpdateAddon.Checked)
+                else if (cboxTaskOptions.SelectedIndex == 3)
                 {
                     MessageBox.Show("Remember to pick a valid .gma file the program can read, also make sure it matches what your addon is! (content wise)", "Notice");
                 }
@@ -344,7 +344,7 @@ namespace GarrysModWorkshopUtility
 
             findProperGMA.IsFolderPicker = false;
             findProperGMA.Filters.Add(new CommonFileDialogFilter("Garry's Mod Addon Files", "*.gma"));
-            findProperGMA.InitialDirectory = txtIconFolderLocation.Text;
+            findProperGMA.InitialDirectory = txtGMALocation.Text;
 
             if (findProperGMA.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -380,18 +380,14 @@ namespace GarrysModWorkshopUtility
 
         private void btnPresetLoader_Click(object sender, EventArgs e)
         {
-            GarrysModWorkshopUtil.PresetLoader newPresetLoader = new GarrysModWorkshopUtil.PresetLoader(this);
-        }
-
-        private void btnCredits_Click(object sender, EventArgs e)
-        {
-            if (GarrysModWorkshopUtil.Credits.creditsWindowIsOpen == true)
+            if (GarrysModWorkshopUtil.PresetLoader.presetWindowIsOpen == true)
             {
 
             }
             else
             {
-                GarrysModWorkshopUtil.Credits newCreditWindow = new GarrysModWorkshopUtil.Credits();
+                GarrysModWorkshopUtil.PresetLoader newPresetLoader = new GarrysModWorkshopUtil.PresetLoader(this);
+                newPresetLoader.Show();
             }
         }
 
@@ -401,7 +397,7 @@ namespace GarrysModWorkshopUtility
             switch (cboxQueueModifyCommands.SelectedIndex)
             {
                 case 0:
-                    if (radCreateGma.Checked == true)
+                    if (cboxTaskOptions.SelectedIndex == 0)
                     {
                         if (txtAddonFolderLocation.Text.Equals("") || txtGMadFolderLocation.Text.Equals("") || txtGMAOutput.Text.Equals(""))
                         {
@@ -409,6 +405,7 @@ namespace GarrysModWorkshopUtility
                         }
                         else
                         {
+                            changeBinFolderBasedOnChoice();
                             String gmaName = Microsoft.VisualBasic.Interaction.InputBox("Type the name of your output .gma here", "Add name");
                             if (gmaName.Equals(""))
                             {
@@ -431,7 +428,32 @@ namespace GarrysModWorkshopUtility
                             lstQueue.Items.Add(newGMAToCreate);
                         }
                     }
-                    else if (radPublishAddon.Checked == true)
+                    else if (cboxTaskOptions.SelectedIndex == 1)
+                    {
+                        if (txtAddonFolderLocation.Equals("") || txtGMadFolderLocation.Text.Equals("") || txtGMALocation.Text.Equals(""))
+                        {
+                            MessageBox.Show("Please do not leave any fields blank!", "Error");
+                        }
+                        else
+                        {
+                            changeBinFolderBasedOnChoice();
+                            String gmaFileName = txtGMALocation.Text.Substring(txtGMALocation.Text.LastIndexOf("\\") + 1);
+                            String taskNotes = Microsoft.VisualBasic.Interaction.InputBox("Any notes you want to put next to the task name? (Type \"n\" to decline)", "Add notes?");
+                            if (taskNotes.Equals("") || taskNotes.Equals("n"))
+                            {
+                                taskNotes = "";
+                            }
+                            else
+                            {
+                                taskNotes = " - " + taskNotes;
+                            }
+                            GarrysModWorkshopUtil.Task GMAToExtract = new GarrysModWorkshopUtil.Task(txtAddonFolderLocation.Text, txtGMadFolderLocation.Text, txtGMALocation.Text, gmaFileName, taskNotes/*, "gmod_util_extract_gma.bat"*/);
+                            tasks.Add(GMAToExtract);
+                            allTasks.Add(GMAToExtract);
+                            lstQueue.Items.Add(GMAToExtract);
+                        }
+                    }
+                    else if (cboxTaskOptions.SelectedIndex == 2)
                     {
                         if (txtGMALocation.Text.Equals("") || txtIconFolderLocation.Text.Equals("") || txtGMadFolderLocation.Text.Equals(""))
                         {
@@ -439,6 +461,7 @@ namespace GarrysModWorkshopUtility
                         }
                         else
                         {
+                            changeBinFolderBasedOnChoice();
                             fixPublishConstructor++;
                             String taskNotes = Microsoft.VisualBasic.Interaction.InputBox("Any notes you want to put next to the task name? (Type \"n\" to decline)", "Add notes?");
                             if (taskNotes.Equals("") || taskNotes.Equals("n"))
@@ -456,7 +479,7 @@ namespace GarrysModWorkshopUtility
                         }
                     }
 
-                    else if (radUpdateAddon.Checked == true)
+                    else if (cboxTaskOptions.SelectedIndex == 3)
                     {
                         if (txtGMadFolderLocation.Text.Equals("") || txtGMALocation.Text.Equals("") || txtAddonIDNumber.Text.Equals(""))
                         {
@@ -464,6 +487,7 @@ namespace GarrysModWorkshopUtility
                         }
                         else
                         {
+                            changeBinFolderBasedOnChoice();
                             String changeNotes = Microsoft.VisualBasic.Interaction.InputBox("Any change notes you want to put? (Type \"n\" to decline)", "Add change notes?");
                             if (changeNotes.Equals("") || changeNotes.Equals("n"))
                             {
@@ -494,15 +518,19 @@ namespace GarrysModWorkshopUtility
                         }
                     }
 
-                    else if (radUpdateIcon.Checked == true)
+                    else if (cboxTaskOptions.SelectedIndex == 4)
                     {
                         if (txtIconFolderLocation.Text.Equals("") || txtGMadFolderLocation.Text.Equals("") || txtAddonIDNumber.Text.Equals(""))
                         {
                             MessageBox.Show("Please do not leave any fields blank!", "Error");
                         }
-
+                        else if (txtAddonIDNumber.Text.Length < 9 || txtAddonIDNumber.Text.Length > 10)
+                        {
+                            MessageBox.Show("Please enter a valid addon ID that is 9 to 10 characters!", "Error");
+                        }
                         else
                         {
+                            changeBinFolderBasedOnChoice();
                             String taskNotes = Microsoft.VisualBasic.Interaction.InputBox("Any notes you want to put next to the task name? (Type \"n\" to decline)", "Add notes?");
                             if (taskNotes.Equals("") || taskNotes.Equals("n"))
                             {
@@ -527,30 +555,6 @@ namespace GarrysModWorkshopUtility
                         }
                     }
 
-                    else if (radExtractGMA.Checked)
-                    {
-                        if (txtAddonFolderLocation.Equals("") || txtGMadFolderLocation.Text.Equals("") || txtGMALocation.Text.Equals(""))
-                        {
-                            MessageBox.Show("Please do not leave any fields blank!", "Error");
-                        }
-                        else
-                        {
-                            String gmaFileName = txtGMALocation.Text.Substring(txtGMALocation.Text.LastIndexOf("\\") + 1);
-                            String taskNotes = Microsoft.VisualBasic.Interaction.InputBox("Any notes you want to put next to the task name? (Type \"n\" to decline)", "Add notes?");
-                            if (taskNotes.Equals("") || taskNotes.Equals("n"))
-                            {
-                                taskNotes = "";
-                            }
-                            else
-                            {
-                                taskNotes = " - " + taskNotes;
-                            }
-                            GarrysModWorkshopUtil.Task GMAToExtract = new GarrysModWorkshopUtil.Task(txtAddonFolderLocation.Text, txtGMadFolderLocation.Text, txtGMALocation.Text, gmaFileName, taskNotes/*, "gmod_util_extract_gma.bat"*/);
-                            tasks.Add(GMAToExtract);
-                            allTasks.Add(GMAToExtract);
-                            lstQueue.Items.Add(GMAToExtract);
-                        }
-                    }
                     break;
                 case 1:
                     if (lstQueue.Items.Count <= 0)
@@ -670,8 +674,8 @@ namespace GarrysModWorkshopUtility
                             {
                                 try
                                 {
-                                    autoRunDeleteTime = (int)(timerValue_long / 0.001);
                                     timeToStartTask.Interval = (int)(timerValue_long / 0.001);
+                                    autoRunDeleteTime = timeToStartTask.Interval;
                                     GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime = autoRunDeleteTime;
                                     lblRunTaskTime.Text = "Running Each Task: Every " + (GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskTime * 0.001) + " seconds";
                                 }
@@ -766,6 +770,8 @@ namespace GarrysModWorkshopUtility
                                     }
 
                                     GarrysModWorkshopUtil.Task testTask = (GarrysModWorkshopUtil.Task)tasks[index];
+                                    taskPreventerEnabled = true;
+                                    tmrPreventRunningSpam.Start();
 
                                     if (testTask.getName().Equals("Create .GMA"))
                                     {
@@ -818,10 +824,18 @@ namespace GarrysModWorkshopUtility
 
                                 catch (Exception)
                                 {
-                                    MessageBox.Show("You are trying to run the program with invalid input, please do not do that.", "Error");
+                                    MessageBox.Show("You are trying to run the program with invalid input," +
+                                        " please do not do that.", "Error");
                                     lstQueue.Items.RemoveAt(lstQueue.Items.Count - 1);
-                                    tasks.RemoveAt(lstQueue.Items.Count - 1);
-                                    allTasks.RemoveAt(lstQueue.Items.Count - 1);
+                                    try
+                                    {
+                                        tasks.RemoveAt(lstQueue.Items.Count - 1);
+                                        allTasks.RemoveAt(lstQueue.Items.Count - 1);
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                    }
                                 }
                             }
                         }
@@ -966,7 +980,7 @@ namespace GarrysModWorkshopUtility
         {
             if (txtSearchAddon.Text.Equals(""))
             {
-                MessageBox.Show("You cannot search for nothing!", "Error");
+                
             }
             else if (lstAddons.Items.Count == 0 || newStringList.Count == 0)
             {
@@ -998,117 +1012,9 @@ namespace GarrysModWorkshopUtility
             tmrFillAddons.Start();
         }
 
-        private void radCreateGma_CheckedChanged(object sender, EventArgs e)
-        {
-            startProgramEffects();
-            isProgramRunningGMPublish = false;
-        }
-
-        private void radPublishAddon_CheckedChanged(object sender, EventArgs e)
-        {
-            if (autoDeleteText == true && chkUseDefLoc.Checked == false)
-            {
-                txtGMadFolderLocation.Text = "";
-            }
-            checkForPublishOrCreateExe();
-            changeGMExeButtonBasedOnChoice();
-            changeBinFolderBasedOnChoice();
-            enableIconFolderFunction();
-            enableBinFunction();
-            enableGMAFunction();
-            disableAddonIDFunction();
-            disableGMAOutputFunction();
-            disableAddonFolderFunction();
-            isProgramRunningGMPublish = true;
-        }
-
-        private void radUpdateAddon_CheckedChanged(object sender, EventArgs e)
-        {
-            if (autoDeleteText == true && chkUseDefLoc.Checked == false)
-            {
-                txtGMadFolderLocation.Text = "";
-            }
-            checkForPublishOrCreateExe();
-            changeGMExeButtonBasedOnChoice();
-            changeBinFolderBasedOnChoice();
-            enableAddonFolderFunction();
-            enableAddonIDFunction();
-            enableGMAFunction();
-            enableBinFunction();
-            disableIconFolderFunction();
-            disableGMAOutputFunction();
-            disableAddonFolderFunction();
-            isProgramRunningGMPublish = true;
-        }
-
-        private void radUpdateIcon_CheckedChanged(object sender, EventArgs e)
-        {
-            if (autoDeleteText == true && chkUseDefLoc.Checked == false)
-            {
-                txtGMadFolderLocation.Text = "";
-            }
-            checkForPublishOrCreateExe();
-            changeGMExeButtonBasedOnChoice();
-            changeBinFolderBasedOnChoice();
-            enableAddonIDFunction();
-            enableIconFolderFunction();
-            enableBinFunction();
-            disableGMAOutputFunction();
-            disableAddonFolderFunction();
-            disableGMAFunction();
-            isProgramRunningGMPublish = true;
-        }
-
-        private void radCreateJSon_CheckedChanged(object sender, EventArgs e)
-        {
-            if (autoDeleteText == true && chkUseDefLoc.Checked == false)
-            {
-                txtGMadFolderLocation.Text = "";
-            }
-            checkForPublishOrCreateExe();
-            changeGMExeButtonBasedOnChoice();
-            changeBinFolderBasedOnChoice();
-            disableAddonIDFunction();
-            disableAddonFolderFunction();
-            disableIconFolderFunction();
-            disableGMAOutputFunction();
-            disableGMAFunction();
-            disableBinFunction();
-            isProgramRunningGMPublish = false;
-        }
-
-        private void radExtractGMA_CheckedChanged(object sender, EventArgs e)
-        {
-            checkForPublishOrCreateExe();
-            changeGMExeButtonBasedOnChoice();
-            changeBinFolderBasedOnChoice();
-            btnFolderLocation.Text = "Addon Output";
-            if (autoDeleteText == true && chkUseDefLoc.Checked == false)
-            {
-                txtGMadFolderLocation.Text = "";
-            }
-            disableAddonIDFunction();
-            disableIconFolderFunction();
-            disableGMAOutputFunction();
-            enableAddonFolderFunction();
-            enableBinFunction();
-            enableGMAFunction();
-            isProgramRunningGMPublish = false;
-        }
-
-        private void radCreatePreset_CheckedChanged(object sender, EventArgs e)
-        {
-            enableAddonFolderFunction();
-            enableGMAFunction();
-            enableAddonIDFunction();
-            enableBinFunction();
-            enableGMAOutputFunction();
-            enableIconFolderFunction();
-        }
-
         private void checkForPublishOrCreateExe()
         {
-            if (radCreateGma.Checked || radExtractGMA.Checked)
+            if (cboxTaskOptions.SelectedIndex == 0 || cboxTaskOptions.SelectedIndex == 1)
             {
                 exeName = "gmad.exe";
             }
@@ -1120,11 +1026,11 @@ namespace GarrysModWorkshopUtility
 
         private void changeGMExeButtonBasedOnChoice()
         {
-            if (/*radCreateJSon.Checked == true ||*/ exeName.Equals("gmad.exe"))
+            if (exeName.Equals("gmad.exe"))
             {
                 btnGmadFolder.Text = "GMad.EXE Location";
             }
-            else if ( exeName.Equals("gmpublish.exe"))
+            else if (exeName.Equals("gmpublish.exe"))
             {
                 btnGmadFolder.Text = "GMPublish.EXE Location";
             }
@@ -1149,7 +1055,7 @@ namespace GarrysModWorkshopUtility
                     }
                 }
             }
-            
+
             catch (Exception)
             {
 
@@ -1172,7 +1078,7 @@ namespace GarrysModWorkshopUtility
 
                 catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -1216,7 +1122,8 @@ namespace GarrysModWorkshopUtility
             disableGMAFunction();
         }
 
-        private void disableGMAFunction() {
+        private void disableGMAFunction()
+        {
             btnGMALocation.Enabled = false;
             txtGMALocation.Enabled = false;
             if (autoDeleteText == true)
@@ -1247,7 +1154,7 @@ namespace GarrysModWorkshopUtility
             txtAddonIDNumber.Enabled = true;
         }
 
-        private void disableAddonFolderFunction() 
+        private void disableAddonFolderFunction()
         {
             btnFolderLocation.Enabled = false;
             txtAddonFolderLocation.Enabled = false;
@@ -1318,7 +1225,7 @@ namespace GarrysModWorkshopUtility
             lblConsoleText.BackColor = System.Drawing.Color.Transparent;
             lblTitle.BackColor = System.Drawing.Color.Transparent;
             lblQueue.BackColor = System.Drawing.Color.Transparent;
-            lblUtilityOptions.BackColor = System.Drawing.Color.Transparent;
+            lblTaskOptionPrompt.BackColor = System.Drawing.Color.Transparent;
             lblIconPreview.BackColor = System.Drawing.Color.Transparent;
             lblQueueCommandPrompts.BackColor = System.Drawing.Color.Transparent;
             chkAutoRun.BackColor = System.Drawing.Color.Transparent;
@@ -1327,11 +1234,6 @@ namespace GarrysModWorkshopUtility
             chkEnableAutoDeleteJSON.BackColor = System.Drawing.Color.Transparent;
             chkIgnoreNotices.BackColor = System.Drawing.Color.Transparent;
             chkToggleResizing.BackColor = System.Drawing.Color.Transparent;
-            radCreateGma.BackColor = System.Drawing.Color.Transparent;
-            radExtractGMA.BackColor = System.Drawing.Color.Transparent;
-            radPublishAddon.BackColor = System.Drawing.Color.Transparent;
-            radUpdateAddon.BackColor = System.Drawing.Color.Transparent;
-            radUpdateIcon.BackColor = System.Drawing.Color.Transparent;
         }
 
         private void saveUserInput()
@@ -1350,29 +1252,30 @@ namespace GarrysModWorkshopUtility
             GarrysModWorkshopUtil.Properties.Settings.Default.TimeCommandSelection = cboxTimeModifyCommands.SelectedIndex;
             GarrysModWorkshopUtil.Properties.Settings.Default.ClearingCommandSelection = cboxClearCommander.SelectedIndex;
             GarrysModWorkshopUtil.Properties.Settings.Default.MainProgramCommandSelection = cboxMainProgramCommands.SelectedIndex;
+            GarrysModWorkshopUtil.Properties.Settings.Default.TaskOptionsSelection = cboxTaskOptions.SelectedIndex;
 
-            if (radCreateGma.Checked)
+            if (cboxTaskOptions.SelectedIndex == 0)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 1;
             }
 
-            else if (radExtractGMA.Checked)
+            else if (cboxTaskOptions.SelectedIndex == 1)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 3;
             }
 
 
-            else if (radPublishAddon.Checked)
+            else if (cboxTaskOptions.SelectedIndex == 2)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 4;
             }
 
-            else if (radUpdateAddon.Checked)
+            else if (cboxTaskOptions.SelectedIndex == 3)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 5;
             }
 
-            else if (radUpdateIcon.Checked)
+            else if (cboxTaskOptions.SelectedIndex == 4)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked = 6;
             }
@@ -1447,28 +1350,7 @@ namespace GarrysModWorkshopUtility
             cboxTimeModifyCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.TimeCommandSelection;
             cboxClearCommander.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.ClearingCommandSelection;
             cboxMainProgramCommands.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.MainProgramCommandSelection;
-
-            switch (GarrysModWorkshopUtil.Properties.Settings.Default.ButtonClicked)
-            {
-                case 1:
-                    radCreateGma.Checked = true;
-                    break;
-                case 3:
-                    radExtractGMA.Checked = true;
-                    break;
-                case 4:
-                    radPublishAddon.Checked = true;
-                    break;
-                case 5:
-                    radUpdateAddon.Checked = true;
-                    break;
-                case 6:
-                    radUpdateIcon.Checked = true;
-                    break;
-                default:
-                    radCreateGma.Checked = true;
-                    break;
-            }
+            cboxTaskOptions.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.TaskOptionsSelection;
 
             if (GarrysModWorkshopUtil.Properties.Settings.Default.EnableStandardExePath == true)
             {
@@ -1544,7 +1426,7 @@ namespace GarrysModWorkshopUtility
 
             txtAddonFolderLocation.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonPath;
             txtGMALocation.Text = GarrysModWorkshopUtil.Properties.Settings.Default.GMAPath;
-            txtGMadFolderLocation.Text  = GarrysModWorkshopUtil.Properties.Settings.Default.BinFolderPath;
+            txtGMadFolderLocation.Text = GarrysModWorkshopUtil.Properties.Settings.Default.BinFolderPath;
             txtIconFolderLocation.Text = GarrysModWorkshopUtil.Properties.Settings.Default.IconPath;
             txtGMAOutput.Text = GarrysModWorkshopUtil.Properties.Settings.Default.GMAOutputPath;
             txtAddonIDNumber.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonID;
@@ -1556,6 +1438,11 @@ namespace GarrysModWorkshopUtility
         public ArrayList getAllTasks()
         {
             return allTasks;
+        }
+
+        public void checkForBinExe()
+        {
+
         }
 
         public void receiveTaskInfo(GarrysModWorkshopUtility.frmGarrysModWorkshopUtility form, int choice)
@@ -1605,6 +1492,24 @@ namespace GarrysModWorkshopUtility
                     txtGMadFolderLocation.Text = form.exeFolderLocation;
                     txtAddonIDNumber.Text = form.addonID.ToString();
                     break;
+                case 7:
+                    txtGMALocation.Text = form.gmaOutputLocation;
+                    txtAddonFolderLocation.Text = form.addonInput;
+                    txtGMadFolderLocation.Text = form.exeFolderLocation;
+                    txtGMAOutput.Text = form.addonOutput;
+                    txtIconFolderLocation.Text = form.iconLocation;
+                    if (form.addonID == 0)
+                    {
+                        txtAddonIDNumber.Text = "";
+                    }
+                    else
+                    {
+                        txtAddonIDNumber.Text = form.addonID.ToString();
+                    }
+                    updateIconPreview();
+                    imagePath = null;
+                    cleanUpMemory();
+                    break;
             }
         }
 
@@ -1616,12 +1521,12 @@ namespace GarrysModWorkshopUtility
 
         private void chkUseDefLoc_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             if (chkUseDefLoc.Checked)
             {
                 String programName = "";
                 String oldExeLocation = txtGMadFolderLocation.Text;
-                if (radCreateGma.Checked || radExtractGMA.Checked)
+                if (cboxTaskOptions.SelectedIndex == 0 || cboxTaskOptions.SelectedIndex == 1)
                 {
                     programName = "gmad.exe";
                 }
@@ -1652,6 +1557,83 @@ namespace GarrysModWorkshopUtility
                 timeToStartTask.Stop();
                 lblRunTaskTime.Text = "Running Each Task: Manually";
                 GarrysModWorkshopUtil.Properties.Settings.Default.AutoRunTaskChecked = false;
+            }
+        }
+
+        private void cboxTaskOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cboxTaskOptions.SelectedIndex)
+            {
+                case 0:
+                    startProgramEffects();
+                    isProgramRunningGMPublish = false;
+                    break;
+                case 1:
+                    checkForPublishOrCreateExe();
+                    changeGMExeButtonBasedOnChoice();
+                    changeBinFolderBasedOnChoice();
+                    btnFolderLocation.Text = "Addon Output";
+                    if (autoDeleteText == true && chkUseDefLoc.Checked == false)
+                    {
+                        txtGMadFolderLocation.Text = "";
+                    }
+                    disableAddonIDFunction();
+                    disableIconFolderFunction();
+                    disableGMAOutputFunction();
+                    enableAddonFolderFunction();
+                    enableBinFunction();
+                    enableGMAFunction();
+                    isProgramRunningGMPublish = false;
+                    break;
+                case 2:
+                    if (autoDeleteText == true && chkUseDefLoc.Checked == false)
+                    {
+                        txtGMadFolderLocation.Text = "";
+                    }
+                    checkForPublishOrCreateExe();
+                    changeGMExeButtonBasedOnChoice();
+                    changeBinFolderBasedOnChoice();
+                    enableIconFolderFunction();
+                    enableBinFunction();
+                    enableGMAFunction();
+                    disableAddonIDFunction();
+                    disableGMAOutputFunction();
+                    disableAddonFolderFunction();
+                    isProgramRunningGMPublish = true;
+                    break;
+                case 3:
+                    if (autoDeleteText == true && chkUseDefLoc.Checked == false)
+                    {
+                        txtGMadFolderLocation.Text = "";
+                    }
+                    checkForPublishOrCreateExe();
+                    changeGMExeButtonBasedOnChoice();
+                    changeBinFolderBasedOnChoice();
+                    enableAddonFolderFunction();
+                    enableAddonIDFunction();
+                    enableGMAFunction();
+                    enableBinFunction();
+                    disableIconFolderFunction();
+                    disableGMAOutputFunction();
+                    disableAddonFolderFunction();
+                    isProgramRunningGMPublish = true;
+                    break;
+                case 4:
+                    if (autoDeleteText == true && chkUseDefLoc.Checked == false)
+                    {
+                        txtGMadFolderLocation.Text = "";
+                    }
+                    checkForPublishOrCreateExe();
+                    changeGMExeButtonBasedOnChoice();
+                    changeBinFolderBasedOnChoice();
+                    enableAddonIDFunction();
+                    enableIconFolderFunction();
+                    enableBinFunction();
+                    disableGMAOutputFunction();
+                    disableAddonFolderFunction();
+                    disableGMAFunction();
+                    isProgramRunningGMPublish = true;
+                    break;
             }
         }
 
@@ -1757,7 +1739,7 @@ namespace GarrysModWorkshopUtility
                 lblLoadingProgress.Text = "Error Loading List!";
                 tmrFillAddons.Stop();
             }
-            
+
         }
 
         private void chkIgnoreNotices_CheckedChanged(object sender, EventArgs e)
@@ -1836,6 +1818,13 @@ namespace GarrysModWorkshopUtility
                 GarrysModWorkshopUtil.Properties.Settings.Default.EnableDarkMode = false;
             }
         }
+
+        private void btnSteamCMDConsoleLoader_Click(object sender, EventArgs e)
+        {
+            GarrysModWorkshopUtil.SteamCMDConsole newConsole = new GarrysModWorkshopUtil.SteamCMDConsole();
+            newConsole.Show();
+        }
     }
 }
+
 
