@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,24 +16,24 @@ namespace GarrysModWorkshopUtil
     class Task
     {
         public static bool taskIsRunning;
-        private bool wantsToDeleteJSON;
-        private String addonLocation;
-        private String gMadLocation;
-        private String gmaLocation;
-        private String gmaName;
-        private String gmaOutput;
-        private String iconLocation;
-        private String TaskName;
-        private String TaskNotes;
-        private string Command;
-        private String jsonLocation;
-        private String addonTitle;
-        private String addonTag1;
-        private String addonTag2;
-        private String addonType;
-        private String changeNotes;
-        private int addonID;
-        private ArrayList wildCards;
+        public bool wantsToDeleteJSON;
+        public String addonLocation;
+        public String gMadLocation;
+        public String gmaLocation;
+        public String gmaName;
+        public String gmaOutput;
+        public String iconLocation;
+        public String TaskName;
+        public String TaskNotes;
+        public String Command;
+        public String jsonLocation;
+        public String addonTitle;
+        public String addonTag1;
+        public String addonTag2;
+        public String addonType;
+        public String changeNotes;
+        public long addonID;
+        public ArrayList wildCards;
 
         public Task(String json, String title, String tag1, String tag2, String type, ArrayList ignoreWildcards, String taskNote)
         {
@@ -77,7 +77,7 @@ namespace GarrysModWorkshopUtil
             TaskNotes = taskNote;
         }
 
-        public Task(String gmad, String gmaLoc, int id, String notes, String taskNote)
+        public Task(String gmad, String gmaLoc, long id, String notes, String taskNote)
         {
             gMadLocation = gmad;
             gmaLocation = gmaLoc;
@@ -87,7 +87,7 @@ namespace GarrysModWorkshopUtil
             TaskNotes = taskNote;
         }
 
-        public Task(String icon, String gmad, int id, String taskNote)
+        public Task(String icon, String gmad, long id, String taskNote)
         {
             iconLocation = icon;
             gMadLocation = gmad;
@@ -106,17 +106,24 @@ namespace GarrysModWorkshopUtil
             scriptWriter.WriteLine("\t\"tags\": [\"" + addonTag1 + "\", \"" + addonTag2 + "\"],");
             scriptWriter.WriteLine("\t\"ignore\":");
             scriptWriter.WriteLine("\t[");
-            foreach (String wildcard in wildCards)
+            if (wildCards.Count == 1 && wildCards[0].Equals(""))
             {
-                if (counter == wildCards.Count - 1)
+
+            }
+            else
+            {
+                foreach (String wildcard in wildCards)
                 {
-                    scriptWriter.WriteLine("\t\t\"" + wildcard + "\"");
+                    if (counter == wildCards.Count - 1)
+                    {
+                        scriptWriter.WriteLine("\t\t\"" + wildcard + "\"");
+                    }
+                    else
+                    {
+                        scriptWriter.WriteLine("\t\t\"" + wildcard + "\",");
+                    }
+                    counter++;
                 }
-                else
-                {
-                    scriptWriter.WriteLine("\t\t\"" + wildcard + "\",");
-                }
-                counter++;
             }
             scriptWriter.WriteLine("\t]");
             scriptWriter.WriteLine("}");
