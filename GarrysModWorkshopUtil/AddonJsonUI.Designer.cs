@@ -90,7 +90,7 @@ namespace GarrysModWorkshopUtil
             // radServerContent
             // 
             this.radServerContent.AutoSize = true;
-            this.radServerContent.Location = new System.Drawing.Point(107, 380);
+            this.radServerContent.Location = new System.Drawing.Point(107, 379);
             this.radServerContent.Name = "radServerContent";
             this.radServerContent.Size = new System.Drawing.Size(93, 17);
             this.radServerContent.TabIndex = 13;
@@ -101,7 +101,7 @@ namespace GarrysModWorkshopUtil
             // radGamemode
             // 
             this.radGamemode.AutoSize = true;
-            this.radGamemode.Location = new System.Drawing.Point(203, 380);
+            this.radGamemode.Location = new System.Drawing.Point(203, 379);
             this.radGamemode.Name = "radGamemode";
             this.radGamemode.Size = new System.Drawing.Size(79, 17);
             this.radGamemode.TabIndex = 14;
@@ -112,7 +112,7 @@ namespace GarrysModWorkshopUtil
             // radMap
             // 
             this.radMap.AutoSize = true;
-            this.radMap.Location = new System.Drawing.Point(285, 380);
+            this.radMap.Location = new System.Drawing.Point(285, 379);
             this.radMap.Name = "radMap";
             this.radMap.Size = new System.Drawing.Size(46, 17);
             this.radMap.TabIndex = 15;
@@ -123,7 +123,7 @@ namespace GarrysModWorkshopUtil
             // radWeapon
             // 
             this.radWeapon.AutoSize = true;
-            this.radWeapon.Location = new System.Drawing.Point(334, 380);
+            this.radWeapon.Location = new System.Drawing.Point(334, 379);
             this.radWeapon.Name = "radWeapon";
             this.radWeapon.Size = new System.Drawing.Size(66, 17);
             this.radWeapon.TabIndex = 16;
@@ -134,7 +134,7 @@ namespace GarrysModWorkshopUtil
             // radEffects
             // 
             this.radEffects.AutoSize = true;
-            this.radEffects.Location = new System.Drawing.Point(562, 380);
+            this.radEffects.Location = new System.Drawing.Point(562, 379);
             this.radEffects.Name = "radEffects";
             this.radEffects.Size = new System.Drawing.Size(58, 17);
             this.radEffects.TabIndex = 20;
@@ -145,7 +145,7 @@ namespace GarrysModWorkshopUtil
             // radTool
             // 
             this.radTool.AutoSize = true;
-            this.radTool.Location = new System.Drawing.Point(512, 380);
+            this.radTool.Location = new System.Drawing.Point(512, 379);
             this.radTool.Name = "radTool";
             this.radTool.Size = new System.Drawing.Size(46, 17);
             this.radTool.TabIndex = 19;
@@ -156,7 +156,7 @@ namespace GarrysModWorkshopUtil
             // radNpc
             // 
             this.radNpc.AutoSize = true;
-            this.radNpc.Location = new System.Drawing.Point(465, 380);
+            this.radNpc.Location = new System.Drawing.Point(465, 379);
             this.radNpc.Name = "radNpc";
             this.radNpc.Size = new System.Drawing.Size(45, 17);
             this.radNpc.TabIndex = 18;
@@ -167,7 +167,7 @@ namespace GarrysModWorkshopUtil
             // radVehicle
             // 
             this.radVehicle.AutoSize = true;
-            this.radVehicle.Location = new System.Drawing.Point(403, 380);
+            this.radVehicle.Location = new System.Drawing.Point(403, 379);
             this.radVehicle.Name = "radVehicle";
             this.radVehicle.Size = new System.Drawing.Size(60, 17);
             this.radVehicle.TabIndex = 17;
@@ -178,7 +178,7 @@ namespace GarrysModWorkshopUtil
             // radModel
             // 
             this.radModel.AutoSize = true;
-            this.radModel.Location = new System.Drawing.Point(623, 380);
+            this.radModel.Location = new System.Drawing.Point(623, 379);
             this.radModel.Name = "radModel";
             this.radModel.Size = new System.Drawing.Size(54, 17);
             this.radModel.TabIndex = 21;
@@ -190,7 +190,7 @@ namespace GarrysModWorkshopUtil
             // 
             this.lblAddonTypeTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblAddonTypeTitle.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddonTypeTitle.Location = new System.Drawing.Point(251, 334);
+            this.lblAddonTypeTitle.Location = new System.Drawing.Point(253, 333);
             this.lblAddonTypeTitle.Name = "lblAddonTypeTitle";
             this.lblAddonTypeTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblAddonTypeTitle.Size = new System.Drawing.Size(306, 43);
@@ -210,12 +210,12 @@ namespace GarrysModWorkshopUtil
             // 
             this.lblEnterWildcards.BackColor = System.Drawing.Color.Transparent;
             this.lblEnterWildcards.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnterWildcards.Location = new System.Drawing.Point(248, 130);
+            this.lblEnterWildcards.Location = new System.Drawing.Point(252, 130);
             this.lblEnterWildcards.Name = "lblEnterWildcards";
             this.lblEnterWildcards.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblEnterWildcards.Size = new System.Drawing.Size(306, 43);
             this.lblEnterWildcards.TabIndex = 6;
-            this.lblEnterWildcards.Text = "Enter Wildcards";
+            this.lblEnterWildcards.Text = "Enter Wildcard(s)";
             this.lblEnterWildcards.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSendBackToMain
@@ -233,7 +233,7 @@ namespace GarrysModWorkshopUtil
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(283, 65);
+            this.label1.Location = new System.Drawing.Point(281, 65);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label1.Size = new System.Drawing.Size(243, 43);
@@ -253,12 +253,12 @@ namespace GarrysModWorkshopUtil
             // 
             this.lblChangeNotes.BackColor = System.Drawing.Color.Transparent;
             this.lblChangeNotes.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangeNotes.Location = new System.Drawing.Point(263, 198);
+            this.lblChangeNotes.Location = new System.Drawing.Point(266, 198);
             this.lblChangeNotes.Name = "lblChangeNotes";
             this.lblChangeNotes.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblChangeNotes.Size = new System.Drawing.Size(281, 43);
             this.lblChangeNotes.TabIndex = 8;
-            this.lblChangeNotes.Text = "Enter Change Notes";
+            this.lblChangeNotes.Text = "Enter Task Note(s)";
             this.lblChangeNotes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtChangeNotes
@@ -295,7 +295,7 @@ namespace GarrysModWorkshopUtil
             this.btnHelp.Location = new System.Drawing.Point(490, 407);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(170, 31);
-            this.btnHelp.TabIndex = 23;
+            this.btnHelp.TabIndex = 24;
             this.btnHelp.Text = "Need Help?";
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
@@ -306,7 +306,7 @@ namespace GarrysModWorkshopUtil
             this.btnGenerateFile.Location = new System.Drawing.Point(314, 407);
             this.btnGenerateFile.Name = "btnGenerateFile";
             this.btnGenerateFile.Size = new System.Drawing.Size(170, 31);
-            this.btnGenerateFile.TabIndex = 24;
+            this.btnGenerateFile.TabIndex = 23;
             this.btnGenerateFile.Text = "Create File";
             this.btnGenerateFile.UseVisualStyleBackColor = true;
             this.btnGenerateFile.Click += new System.EventHandler(this.btnGenerateFile_Click);
