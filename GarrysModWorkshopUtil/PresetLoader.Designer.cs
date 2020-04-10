@@ -57,6 +57,7 @@ namespace GarrysModWorkshopUtil
             this.radGmad = new System.Windows.Forms.RadioButton();
             this.radGMPublish = new System.Windows.Forms.RadioButton();
             this.btnDeletePreset = new System.Windows.Forms.Button();
+            this.btnClearInput = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtGMAOutputPreset
@@ -127,7 +128,7 @@ namespace GarrysModWorkshopUtil
             // btnSavePreset
             // 
             this.btnSavePreset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSavePreset.Location = new System.Drawing.Point(243, 260);
+            this.btnSavePreset.Location = new System.Drawing.Point(156, 260);
             this.btnSavePreset.Name = "btnSavePreset";
             this.btnSavePreset.Size = new System.Drawing.Size(170, 31);
             this.btnSavePreset.TabIndex = 18;
@@ -314,6 +315,7 @@ namespace GarrysModWorkshopUtil
             this.radGmad.TabStop = true;
             this.radGmad.Text = "GMad.exe";
             this.radGmad.UseVisualStyleBackColor = true;
+            this.radGmad.CheckedChanged += new System.EventHandler(this.radGmad_CheckedChanged);
             // 
             // radGMPublish
             // 
@@ -326,6 +328,7 @@ namespace GarrysModWorkshopUtil
             this.radGMPublish.TabStop = true;
             this.radGMPublish.Text = "GMPublish.exe";
             this.radGMPublish.UseVisualStyleBackColor = true;
+            this.radGMPublish.CheckedChanged += new System.EventHandler(this.radGMPublish_CheckedChanged);
             // 
             // btnDeletePreset
             // 
@@ -338,11 +341,23 @@ namespace GarrysModWorkshopUtil
             this.btnDeletePreset.UseVisualStyleBackColor = true;
             this.btnDeletePreset.Click += new System.EventHandler(this.btnDeletePreset_Click);
             // 
+            // btnClearInput
+            // 
+            this.btnClearInput.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearInput.Location = new System.Drawing.Point(328, 260);
+            this.btnClearInput.Name = "btnClearInput";
+            this.btnClearInput.Size = new System.Drawing.Size(170, 31);
+            this.btnClearInput.TabIndex = 28;
+            this.btnClearInput.Text = "Clear Input";
+            this.btnClearInput.UseVisualStyleBackColor = true;
+            this.btnClearInput.Click += new System.EventHandler(this.btnClearInput_Click);
+            // 
             // PresetLoader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 410);
+            this.Controls.Add(this.btnClearInput);
             this.Controls.Add(this.btnDeletePreset);
             this.Controls.Add(this.radGMPublish);
             this.Controls.Add(this.radGmad);
@@ -413,5 +428,6 @@ namespace GarrysModWorkshopUtil
         private System.Windows.Forms.RadioButton radGmad;
         private System.Windows.Forms.RadioButton radGMPublish;
         private System.Windows.Forms.Button btnDeletePreset;
+        private System.Windows.Forms.Button btnClearInput;
     }
 }
