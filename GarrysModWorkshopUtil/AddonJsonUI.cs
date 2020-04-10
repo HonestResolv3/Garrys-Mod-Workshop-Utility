@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,11 +31,13 @@ namespace GarrysModWorkshopUtil
         {
             radServerContent.Checked = true;
             windowIsOpen = true;
+            loadInput();
         }
 
         private void AddonJsonUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             windowIsOpen = false;
+            saveInput();
         }
 
         private void btnDirectoryOfJSon_Click(object sender, EventArgs e)
@@ -89,6 +92,13 @@ namespace GarrysModWorkshopUtil
                 {
                     String wildCardFormatter = Regex.Replace(txtWildcards.Text, @"\s+", String.Empty);
                     wildcards = wildCardFormatter.Split(',');
+
+                    int index = 0;
+                    foreach (String wildcard in wildcards)
+                    {
+                        wildcards[index] = wildcard.ToLower();
+                        index++;
+                    }
                 }
 
                 if (txtAddonTags.Text.Equals("") || !txtAddonTags.Text.Contains(","))
@@ -99,8 +109,8 @@ namespace GarrysModWorkshopUtil
                 {
                     String addonTagFormatter = Regex.Replace(txtAddonTags.Text, @"\s+", String.Empty);
                     string[] tags = addonTagFormatter.Split(',');
-                    String addonTag1 = tags[0];
-                    String addonTag2 = tags[1];
+                    String addonTag1 = tags[0].ToLower();
+                    String addonTag2 = tags[1].ToLower();
                     bool firstTagValid = false;
 
                     foreach (string tag in addonTags)
@@ -150,9 +160,9 @@ namespace GarrysModWorkshopUtil
                             }
 
                             String changeNotes = "";
-                            if (!(txtChangeNotes.Text.Equals("")))
+                            if (!(txtTaskNotes.Text.Equals("")))
                             {
-                                changeNotes = " - " + txtChangeNotes.Text;
+                                changeNotes = " - " + txtTaskNotes.Text;
                             }
                             Task jsonTask = new Task(txtDirectoryOfJSon.Text, txtAddonTitle.Text, addonTag1, addonTag2, addonType, cards, changeNotes);
                             sendBackToMain.lstQueue.Items.Add(jsonTask);
@@ -199,9 +209,10 @@ namespace GarrysModWorkshopUtil
                 {
                     String addonTagFormatter = Regex.Replace(txtAddonTags.Text, @"\s+", String.Empty);
                     string[] tags = addonTagFormatter.Split(',');
-                    String addonTag1 = tags[0];
-                    String addonTag2 = tags[1];
+                    String addonTag1 = tags[0].ToLower();
+                    String addonTag2 = tags[1].ToLower();
                     string[] wildcards = null;
+
                     if (txtWildcards.Text.Equals(""))
                     {
                         wildcards = new string[1];
@@ -292,6 +303,16 @@ namespace GarrysModWorkshopUtil
             }
         }
 
+
+        private void btnClearInput_Click(object sender, EventArgs e)
+        {
+            txtDirectoryOfJSon.Text = "";
+            txtAddonTitle.Text = "";
+            txtTaskNotes.Text = "";
+            txtWildcards.Text = "";
+            txtAddonTags.Text = "";
+        }
+
         public String getAddonType()
         {
             String addonType = "";
@@ -332,6 +353,94 @@ namespace GarrysModWorkshopUtil
                 addonType = "model";
             }
             return addonType;
+        }
+
+        public void saveInput()
+        {
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIOutput = txtDirectoryOfJSon.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITitle = txtAddonTitle.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIWildcards = txtWildcards.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITaskNotes = txtTaskNotes.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTags = txtAddonTags.Text;
+
+            if (radServerContent.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 0;
+            }
+            else if (radGamemode.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 1;
+            }
+            else if (radMap.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 2;
+            }
+            else if (radWeapon.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 3;
+            }
+            else if (radVehicle.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 4;
+            }
+            else if (radNpc.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 5;
+            }
+            else if (radTool.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 6;
+            }
+            else if (radEffects.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 7;
+            }
+            else if (radModel.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 8;
+            }
+
+            GarrysModWorkshopUtil.Properties.Settings.Default.Save();
+        }
+
+        public void loadInput()
+        {
+            txtDirectoryOfJSon.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIOutput;
+            txtAddonTitle.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITitle;
+            txtWildcards.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIWildcards;
+            txtTaskNotes.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITaskNotes;
+            txtAddonTags.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTags;
+
+            switch (GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType)
+            {
+                case 0:
+                    radServerContent.Checked = true;
+                    break;
+                case 1:
+                    radGamemode.Checked = true;
+                    break;
+                case 2:
+                    radMap.Checked = true;
+                    break;
+                case 3:
+                    radWeapon.Checked = true;
+                    break;
+                case 4:
+                    radVehicle.Checked = true;
+                    break;
+                case 5:
+                    radNpc.Checked = true;
+                    break;
+                case 6:
+                    radTool.Checked = true;
+                    break;
+                case 7:
+                    radEffects.Checked = true;
+                    break;
+                case 8:
+                    radModel.Checked = true;
+                    break;
+            }
         }
     }
 }
