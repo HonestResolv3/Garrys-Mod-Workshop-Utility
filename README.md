@@ -4,9 +4,11 @@
 
 A C# based program to make publishing, extracting, and updating easier in Garry's Mod
 
-![The_Program](https://i.imgur.com/I6CBUbq.jpg)
+![The_Program](https://i.imgur.com/Z9xMB3H.jpg)
 
 Features:
+- Addon.Json UI Interfact
+- Preset/Template Creator
 - Addon Loader
 - Past Task Viewer
 - Program Reloading
