@@ -65,12 +65,12 @@ namespace GarrysModWorkshopUtil
             // 
             this.lblProgramTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblProgramTitle.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgramTitle.Location = new System.Drawing.Point(74, -2);
+            this.lblProgramTitle.Location = new System.Drawing.Point(65, -2);
             this.lblProgramTitle.Name = "lblProgramTitle";
             this.lblProgramTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblProgramTitle.Size = new System.Drawing.Size(417, 43);
+            this.lblProgramTitle.Size = new System.Drawing.Size(439, 43);
             this.lblProgramTitle.TabIndex = 1;
-            this.lblProgramTitle.Text = "Garry\'s Mod Workshop Utility v5";
+            this.lblProgramTitle.Text = "Garry\'s Mod Workshop Utility v4.5";
             this.lblProgramTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lstChangelog
@@ -194,7 +194,7 @@ namespace GarrysModWorkshopUtil
             "Load Version 2 Changelog",
             "Load Version 3 Changelog",
             "Load Version 4 Changelog",
-            "Load Version 5 Changelog"});
+            "Load Version 4.5 Changelog"});
             this.cboxChangelogs.Location = new System.Drawing.Point(12, 45);
             this.cboxChangelogs.Name = "cboxChangelogs";
             this.cboxChangelogs.Size = new System.Drawing.Size(330, 25);
