@@ -34,11 +34,13 @@ namespace GarrysModWorkshopUtil
             {
                 loadPresets();
             }
+            loadInformation();
         }
 
         private void PresetLoader_FormClosing(object sender, FormClosingEventArgs e)
         {
             presetWindowIsOpen = false;
+            saveInformation();
         }
 
         private void btnSavePreset_Click(object sender, EventArgs e)
@@ -62,6 +64,7 @@ namespace GarrysModWorkshopUtil
                     if (whereToSave.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         savePreset();
+                        loadPresets();
                     }
                 }
                 else
@@ -69,6 +72,7 @@ namespace GarrysModWorkshopUtil
                     if (Directory.Exists(txtPresetLocation.Text))
                     {
                         savePreset();
+                        loadPresets();
                     }
                     else
                     {
@@ -76,7 +80,6 @@ namespace GarrysModWorkshopUtil
                     }
                 }
             }
-            loadPresets();
         }
 
         private void btnLoadPreset_Click(object sender, EventArgs e)
@@ -104,7 +107,10 @@ namespace GarrysModWorkshopUtil
 
         private void btnViewPresetInfo_Click(object sender, EventArgs e)
         {
-            readPreset();
+            if (!(lstPresets.Items.Count == 0) && !(lstPresets.SelectedIndex < 0))
+                readPreset();
+            else
+                MessageBox.Show("Please select a valid preset (if one exists)!", "Error");
         }
 
 
@@ -136,47 +142,6 @@ namespace GarrysModWorkshopUtil
             }
             programSender.addonOutput = txtGMALocationPreset.Text;
             programSender.receiveTaskInfo(programSender, 7);
-        }
-
-        private void loadPresets()
-        {
-            if (Directory.Exists(txtPresetLocation.Text))
-            {
-                try
-                {
-                    files = System.IO.Directory.GetFiles(txtPresetLocation.Text, "*.gmwu_preset");
-                    if (files.Length != 0)
-                    {
-                        presets.Clear();
-                        lstPresets.Items.Clear();
-                        int index = 0;
-                        foreach (string file in files)
-                        {
-                            StreamReader fileReader = new StreamReader(file);
-                            string presetName = fileReader.ReadLine();
-                            string addonInput = fileReader.ReadLine();
-                            string iconLocationInput = fileReader.ReadLine();
-                            string exePath = fileReader.ReadLine();
-                            string gmaLoc = fileReader.ReadLine();
-                            string gmaOutput = fileReader.ReadLine();
-                            string addonIDNumber = fileReader.ReadLine();
-                            presets.Add(new PresetData(presetName, addonInput, iconLocationInput, exePath, gmaLoc, gmaOutput, addonIDNumber, file));
-                            lstPresets.Items.Add(presets[index]);
-                            index++;
-                            btnViewPresetInfo.Enabled = true;
-                            fileReader.Dispose();
-                        }
-                    }
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("You cannot load presets from this location", "Error");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("An unexpected error happened", "Error");
-                }
-            }  
         }
 
         private void btnFolderLocation_Click(object sender, EventArgs e)
@@ -389,6 +354,18 @@ namespace GarrysModWorkshopUtil
             }
         }
 
+
+        private void btnClearInput_Click(object sender, EventArgs e)
+        {
+            txtAddonFolderLocationPreset.Text = "";
+            txtIconFolderLocationPreset.Text = "";
+            txtGMadFolderLocationPreset.Text = "";
+            txtGMAOutputPreset.Text = "";
+            txtGMALocationPreset.Text = "";
+            txtAddonIDNumberPreset.Text = "";
+            txtPresetName.Text = "";
+        }
+
         private void readPreset()
         {
             try
@@ -430,6 +407,132 @@ namespace GarrysModWorkshopUtil
             presetWriter = null;
             GC.Collect();
             MessageBox.Show("Preset saved successfully!", "Notice");
+        }
+
+
+        private void loadPresets()
+        {
+            if (Directory.Exists(txtPresetLocation.Text))
+            {
+                try
+                {
+                    files = System.IO.Directory.GetFiles(txtPresetLocation.Text, "*.gmwu_preset");
+                    if (files.Length != 0)
+                    {
+                        presets.Clear();
+                        lstPresets.Items.Clear();
+                        int index = 0;
+                        foreach (string file in files)
+                        {
+                            StreamReader fileReader = new StreamReader(file);
+                            string presetName = fileReader.ReadLine();
+                            string addonInput = fileReader.ReadLine();
+                            string iconLocationInput = fileReader.ReadLine();
+                            string exePath = fileReader.ReadLine();
+                            string gmaLoc = fileReader.ReadLine();
+                            string gmaOutput = fileReader.ReadLine();
+                            string addonIDNumber = fileReader.ReadLine();
+                            presets.Add(new PresetData(presetName, addonInput, iconLocationInput, exePath, gmaLoc, gmaOutput, addonIDNumber, file));
+                            lstPresets.Items.Add(presets[index]);
+                            index++;
+                            btnViewPresetInfo.Enabled = true;
+                            fileReader.Dispose();
+                        }
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("You cannot load presets from this location", "Error");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("An unexpected error happened", "Error");
+                }
+            }
+        }
+
+        private void changeBinFolderBasedOnChoice()
+        {
+            String exeName = "";
+            if (radGmad.Checked)
+            {
+                exeName = "gmad.exe";
+            }
+            else if (radGMPublish.Checked)
+            {
+                exeName = "gmpublish.exe";
+            }
+            try
+            {
+                if (exeName.Equals("gmad.exe"))
+                {
+                    if (!(txtGMadFolderLocationPreset.Text.Equals("")))
+                    {
+                        txtGMadFolderLocationPreset.Text = txtGMadFolderLocationPreset.Text.Substring(0, txtGMadFolderLocationPreset.Text.LastIndexOf("\\")) + "\\gmad.exe";
+                    }
+                }
+                else if (exeName.Equals("gmpublish.exe"))
+                {
+                    if (!(txtGMadFolderLocationPreset.Text.Equals("")))
+                    {
+                        txtGMadFolderLocationPreset.Text = txtGMadFolderLocationPreset.Text.Substring(0, txtGMadFolderLocationPreset.Text.LastIndexOf("\\")) + "\\gmpublish.exe";
+                    }
+                }
+            }
+
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void saveInformation()
+        {
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetAddonInput = txtAddonFolderLocationPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetIconLocation = txtIconFolderLocationPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetExecutableLocation = txtGMadFolderLocationPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetGMAOutputLoc = txtGMAOutputPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetGMALocation = txtGMALocationPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetAddonID = txtAddonIDNumberPreset.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.PresetNameInput = txtPresetName.Text;
+            if (radGmad.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.PresetExeChoice = 0;
+            }
+            else if (radGMPublish.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.PresetExeChoice = 1;
+            }
+            GarrysModWorkshopUtil.Properties.Settings.Default.Save();
+        }
+
+        private void loadInformation()
+        {
+            txtAddonFolderLocationPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetAddonInput;
+            txtIconFolderLocationPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetIconLocation;
+            txtGMadFolderLocationPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetExecutableLocation;
+            txtGMAOutputPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetGMAOutputLoc;
+            txtGMALocationPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetGMALocation;
+            txtAddonIDNumberPreset.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetAddonID;
+            txtPresetName.Text = GarrysModWorkshopUtil.Properties.Settings.Default.PresetNameInput;
+            if (GarrysModWorkshopUtil.Properties.Settings.Default.PresetExeChoice == 0)
+            {
+                radGmad.Checked = true;
+            }
+            else if (GarrysModWorkshopUtil.Properties.Settings.Default.PresetExeChoice == 1)
+            {
+                radGMPublish.Checked = true;
+            }
+        }
+
+        private void radGmad_CheckedChanged(object sender, EventArgs e)
+        {
+            changeBinFolderBasedOnChoice();
+        }
+
+        private void radGMPublish_CheckedChanged(object sender, EventArgs e)
+        {
+            changeBinFolderBasedOnChoice();
         }
     }
 }
