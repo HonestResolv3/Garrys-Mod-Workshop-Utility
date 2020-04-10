@@ -48,11 +48,12 @@ namespace GarrysModWorkshopUtil
             this.label1 = new System.Windows.Forms.Label();
             this.txtAddonTitle = new System.Windows.Forms.TextBox();
             this.lblChangeNotes = new System.Windows.Forms.Label();
-            this.txtChangeNotes = new System.Windows.Forms.TextBox();
+            this.txtTaskNotes = new System.Windows.Forms.TextBox();
             this.lblAddonTags = new System.Windows.Forms.Label();
             this.txtAddonTags = new System.Windows.Forms.TextBox();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnGenerateFile = new System.Windows.Forms.Button();
+            this.btnClearInput = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUITitle
@@ -221,7 +222,7 @@ namespace GarrysModWorkshopUtil
             // btnSendBackToMain
             // 
             this.btnSendBackToMain.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendBackToMain.Location = new System.Drawing.Point(138, 407);
+            this.btnSendBackToMain.Location = new System.Drawing.Point(49, 407);
             this.btnSendBackToMain.Name = "btnSendBackToMain";
             this.btnSendBackToMain.Size = new System.Drawing.Size(170, 31);
             this.btnSendBackToMain.TabIndex = 22;
@@ -261,13 +262,13 @@ namespace GarrysModWorkshopUtil
             this.lblChangeNotes.Text = "Enter Task Note(s)";
             this.lblChangeNotes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtChangeNotes
+            // txtTaskNotes
             // 
-            this.txtChangeNotes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChangeNotes.Location = new System.Drawing.Point(38, 244);
-            this.txtChangeNotes.Name = "txtChangeNotes";
-            this.txtChangeNotes.Size = new System.Drawing.Size(717, 22);
-            this.txtChangeNotes.TabIndex = 9;
+            this.txtTaskNotes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskNotes.Location = new System.Drawing.Point(38, 244);
+            this.txtTaskNotes.Name = "txtTaskNotes";
+            this.txtTaskNotes.Size = new System.Drawing.Size(717, 22);
+            this.txtTaskNotes.TabIndex = 9;
             // 
             // lblAddonTags
             // 
@@ -292,7 +293,7 @@ namespace GarrysModWorkshopUtil
             // btnHelp
             // 
             this.btnHelp.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelp.Location = new System.Drawing.Point(490, 407);
+            this.btnHelp.Location = new System.Drawing.Point(574, 407);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(170, 31);
             this.btnHelp.TabIndex = 24;
@@ -303,7 +304,7 @@ namespace GarrysModWorkshopUtil
             // btnGenerateFile
             // 
             this.btnGenerateFile.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateFile.Location = new System.Drawing.Point(314, 407);
+            this.btnGenerateFile.Location = new System.Drawing.Point(224, 407);
             this.btnGenerateFile.Name = "btnGenerateFile";
             this.btnGenerateFile.Size = new System.Drawing.Size(170, 31);
             this.btnGenerateFile.TabIndex = 23;
@@ -311,17 +312,29 @@ namespace GarrysModWorkshopUtil
             this.btnGenerateFile.UseVisualStyleBackColor = true;
             this.btnGenerateFile.Click += new System.EventHandler(this.btnGenerateFile_Click);
             // 
+            // btnClearInput
+            // 
+            this.btnClearInput.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearInput.Location = new System.Drawing.Point(399, 407);
+            this.btnClearInput.Name = "btnClearInput";
+            this.btnClearInput.Size = new System.Drawing.Size(170, 31);
+            this.btnClearInput.TabIndex = 25;
+            this.btnClearInput.Text = "Clear Input";
+            this.btnClearInput.UseVisualStyleBackColor = true;
+            this.btnClearInput.Click += new System.EventHandler(this.btnClearInput_Click);
+            // 
             // AddonJsonUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnClearInput);
             this.Controls.Add(this.btnGenerateFile);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.lblAddonTags);
             this.Controls.Add(this.txtAddonTags);
             this.Controls.Add(this.lblChangeNotes);
-            this.Controls.Add(this.txtChangeNotes);
+            this.Controls.Add(this.txtTaskNotes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtAddonTitle);
             this.Controls.Add(this.btnSendBackToMain);
@@ -373,10 +386,11 @@ namespace GarrysModWorkshopUtil
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddonTitle;
         private System.Windows.Forms.Label lblChangeNotes;
-        private System.Windows.Forms.TextBox txtChangeNotes;
+        private System.Windows.Forms.TextBox txtTaskNotes;
         private System.Windows.Forms.Label lblAddonTags;
         private System.Windows.Forms.TextBox txtAddonTags;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnGenerateFile;
+        private System.Windows.Forms.Button btnClearInput;
     }
 }
