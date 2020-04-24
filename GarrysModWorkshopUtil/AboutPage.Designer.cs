@@ -194,7 +194,8 @@ namespace GarrysModWorkshopUtil
             "Load Version 2 Changelog",
             "Load Version 3 Changelog",
             "Load Version 4 Changelog",
-            "Load Version 4.5 Changelog"});
+            "Load Version 4.5 Changelog",
+            "Load Version 4.5.1 Changelog"});
             this.cboxChangelogs.Location = new System.Drawing.Point(12, 45);
             this.cboxChangelogs.Name = "cboxChangelogs";
             this.cboxChangelogs.Size = new System.Drawing.Size(330, 25);

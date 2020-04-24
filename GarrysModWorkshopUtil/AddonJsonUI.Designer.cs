@@ -50,10 +50,12 @@ namespace GarrysModWorkshopUtil
             this.lblChangeNotes = new System.Windows.Forms.Label();
             this.txtTaskNotes = new System.Windows.Forms.TextBox();
             this.lblAddonTags = new System.Windows.Forms.Label();
-            this.txtAddonTags = new System.Windows.Forms.TextBox();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnGenerateFile = new System.Windows.Forms.Button();
             this.btnClearInput = new System.Windows.Forms.Button();
+            this.radEntity = new System.Windows.Forms.RadioButton();
+            this.cboxTag1 = new System.Windows.Forms.ComboBox();
+            this.cboxTag2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblUITitle
@@ -91,10 +93,10 @@ namespace GarrysModWorkshopUtil
             // radServerContent
             // 
             this.radServerContent.AutoSize = true;
-            this.radServerContent.Location = new System.Drawing.Point(107, 379);
+            this.radServerContent.Location = new System.Drawing.Point(82, 379);
             this.radServerContent.Name = "radServerContent";
             this.radServerContent.Size = new System.Drawing.Size(93, 17);
-            this.radServerContent.TabIndex = 13;
+            this.radServerContent.TabIndex = 14;
             this.radServerContent.TabStop = true;
             this.radServerContent.Text = "ServerContent";
             this.radServerContent.UseVisualStyleBackColor = true;
@@ -102,10 +104,10 @@ namespace GarrysModWorkshopUtil
             // radGamemode
             // 
             this.radGamemode.AutoSize = true;
-            this.radGamemode.Location = new System.Drawing.Point(203, 379);
+            this.radGamemode.Location = new System.Drawing.Point(178, 379);
             this.radGamemode.Name = "radGamemode";
             this.radGamemode.Size = new System.Drawing.Size(79, 17);
-            this.radGamemode.TabIndex = 14;
+            this.radGamemode.TabIndex = 15;
             this.radGamemode.TabStop = true;
             this.radGamemode.Text = "Gamemode";
             this.radGamemode.UseVisualStyleBackColor = true;
@@ -113,10 +115,10 @@ namespace GarrysModWorkshopUtil
             // radMap
             // 
             this.radMap.AutoSize = true;
-            this.radMap.Location = new System.Drawing.Point(285, 379);
+            this.radMap.Location = new System.Drawing.Point(260, 379);
             this.radMap.Name = "radMap";
             this.radMap.Size = new System.Drawing.Size(46, 17);
-            this.radMap.TabIndex = 15;
+            this.radMap.TabIndex = 16;
             this.radMap.TabStop = true;
             this.radMap.Text = "Map";
             this.radMap.UseVisualStyleBackColor = true;
@@ -124,10 +126,10 @@ namespace GarrysModWorkshopUtil
             // radWeapon
             // 
             this.radWeapon.AutoSize = true;
-            this.radWeapon.Location = new System.Drawing.Point(334, 379);
+            this.radWeapon.Location = new System.Drawing.Point(309, 379);
             this.radWeapon.Name = "radWeapon";
             this.radWeapon.Size = new System.Drawing.Size(66, 17);
-            this.radWeapon.TabIndex = 16;
+            this.radWeapon.TabIndex = 17;
             this.radWeapon.TabStop = true;
             this.radWeapon.Text = "Weapon";
             this.radWeapon.UseVisualStyleBackColor = true;
@@ -135,10 +137,10 @@ namespace GarrysModWorkshopUtil
             // radEffects
             // 
             this.radEffects.AutoSize = true;
-            this.radEffects.Location = new System.Drawing.Point(562, 379);
+            this.radEffects.Location = new System.Drawing.Point(537, 379);
             this.radEffects.Name = "radEffects";
             this.radEffects.Size = new System.Drawing.Size(58, 17);
-            this.radEffects.TabIndex = 20;
+            this.radEffects.TabIndex = 21;
             this.radEffects.TabStop = true;
             this.radEffects.Text = "Effects";
             this.radEffects.UseVisualStyleBackColor = true;
@@ -146,10 +148,10 @@ namespace GarrysModWorkshopUtil
             // radTool
             // 
             this.radTool.AutoSize = true;
-            this.radTool.Location = new System.Drawing.Point(512, 379);
+            this.radTool.Location = new System.Drawing.Point(487, 379);
             this.radTool.Name = "radTool";
             this.radTool.Size = new System.Drawing.Size(46, 17);
-            this.radTool.TabIndex = 19;
+            this.radTool.TabIndex = 20;
             this.radTool.TabStop = true;
             this.radTool.Text = "Tool";
             this.radTool.UseVisualStyleBackColor = true;
@@ -157,10 +159,10 @@ namespace GarrysModWorkshopUtil
             // radNpc
             // 
             this.radNpc.AutoSize = true;
-            this.radNpc.Location = new System.Drawing.Point(465, 379);
+            this.radNpc.Location = new System.Drawing.Point(440, 379);
             this.radNpc.Name = "radNpc";
             this.radNpc.Size = new System.Drawing.Size(45, 17);
-            this.radNpc.TabIndex = 18;
+            this.radNpc.TabIndex = 19;
             this.radNpc.TabStop = true;
             this.radNpc.Text = "Npc";
             this.radNpc.UseVisualStyleBackColor = true;
@@ -168,10 +170,10 @@ namespace GarrysModWorkshopUtil
             // radVehicle
             // 
             this.radVehicle.AutoSize = true;
-            this.radVehicle.Location = new System.Drawing.Point(403, 379);
+            this.radVehicle.Location = new System.Drawing.Point(378, 379);
             this.radVehicle.Name = "radVehicle";
             this.radVehicle.Size = new System.Drawing.Size(60, 17);
-            this.radVehicle.TabIndex = 17;
+            this.radVehicle.TabIndex = 18;
             this.radVehicle.TabStop = true;
             this.radVehicle.Text = "Vehicle";
             this.radVehicle.UseVisualStyleBackColor = true;
@@ -179,10 +181,10 @@ namespace GarrysModWorkshopUtil
             // radModel
             // 
             this.radModel.AutoSize = true;
-            this.radModel.Location = new System.Drawing.Point(623, 379);
+            this.radModel.Location = new System.Drawing.Point(598, 379);
             this.radModel.Name = "radModel";
             this.radModel.Size = new System.Drawing.Size(54, 17);
-            this.radModel.TabIndex = 21;
+            this.radModel.TabIndex = 22;
             this.radModel.TabStop = true;
             this.radModel.Text = "Model";
             this.radModel.UseVisualStyleBackColor = true;
@@ -195,7 +197,7 @@ namespace GarrysModWorkshopUtil
             this.lblAddonTypeTitle.Name = "lblAddonTypeTitle";
             this.lblAddonTypeTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblAddonTypeTitle.Size = new System.Drawing.Size(306, 43);
-            this.lblAddonTypeTitle.TabIndex = 12;
+            this.lblAddonTypeTitle.TabIndex = 13;
             this.lblAddonTypeTitle.Text = "Select Addon Type";
             this.lblAddonTypeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -225,7 +227,7 @@ namespace GarrysModWorkshopUtil
             this.btnSendBackToMain.Location = new System.Drawing.Point(49, 407);
             this.btnSendBackToMain.Name = "btnSendBackToMain";
             this.btnSendBackToMain.Size = new System.Drawing.Size(170, 31);
-            this.btnSendBackToMain.TabIndex = 22;
+            this.btnSendBackToMain.TabIndex = 24;
             this.btnSendBackToMain.Text = "Send Back To Program";
             this.btnSendBackToMain.UseVisualStyleBackColor = true;
             this.btnSendBackToMain.Click += new System.EventHandler(this.btnSendBackToMain_Click);
@@ -282,21 +284,13 @@ namespace GarrysModWorkshopUtil
             this.lblAddonTags.Text = "Enter Addon Tags";
             this.lblAddonTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtAddonTags
-            // 
-            this.txtAddonTags.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddonTags.Location = new System.Drawing.Point(38, 310);
-            this.txtAddonTags.Name = "txtAddonTags";
-            this.txtAddonTags.Size = new System.Drawing.Size(717, 22);
-            this.txtAddonTags.TabIndex = 11;
-            // 
             // btnHelp
             // 
             this.btnHelp.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHelp.Location = new System.Drawing.Point(574, 407);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(170, 31);
-            this.btnHelp.TabIndex = 24;
+            this.btnHelp.TabIndex = 27;
             this.btnHelp.Text = "Need Help?";
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
@@ -307,7 +301,7 @@ namespace GarrysModWorkshopUtil
             this.btnGenerateFile.Location = new System.Drawing.Point(224, 407);
             this.btnGenerateFile.Name = "btnGenerateFile";
             this.btnGenerateFile.Size = new System.Drawing.Size(170, 31);
-            this.btnGenerateFile.TabIndex = 23;
+            this.btnGenerateFile.TabIndex = 25;
             this.btnGenerateFile.Text = "Create File";
             this.btnGenerateFile.UseVisualStyleBackColor = true;
             this.btnGenerateFile.Click += new System.EventHandler(this.btnGenerateFile_Click);
@@ -318,21 +312,74 @@ namespace GarrysModWorkshopUtil
             this.btnClearInput.Location = new System.Drawing.Point(399, 407);
             this.btnClearInput.Name = "btnClearInput";
             this.btnClearInput.Size = new System.Drawing.Size(170, 31);
-            this.btnClearInput.TabIndex = 25;
+            this.btnClearInput.TabIndex = 26;
             this.btnClearInput.Text = "Clear Input";
             this.btnClearInput.UseVisualStyleBackColor = true;
             this.btnClearInput.Click += new System.EventHandler(this.btnClearInput_Click);
+            // 
+            // radEntity
+            // 
+            this.radEntity.AutoSize = true;
+            this.radEntity.Location = new System.Drawing.Point(654, 379);
+            this.radEntity.Name = "radEntity";
+            this.radEntity.Size = new System.Drawing.Size(51, 17);
+            this.radEntity.TabIndex = 23;
+            this.radEntity.TabStop = true;
+            this.radEntity.Text = "Entity";
+            this.radEntity.UseVisualStyleBackColor = true;
+            // 
+            // cboxTag1
+            // 
+            this.cboxTag1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxTag1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxTag1.FormattingEnabled = true;
+            this.cboxTag1.Items.AddRange(new object[] {
+            "Fun",
+            "Roleplay",
+            "Scenic",
+            "Movie",
+            "Realism",
+            "Cartoon",
+            "Water",
+            "Comic",
+            "Build"});
+            this.cboxTag1.Location = new System.Drawing.Point(208, 313);
+            this.cboxTag1.Name = "cboxTag1";
+            this.cboxTag1.Size = new System.Drawing.Size(186, 21);
+            this.cboxTag1.TabIndex = 11;
+            // 
+            // cboxTag2
+            // 
+            this.cboxTag2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxTag2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxTag2.FormattingEnabled = true;
+            this.cboxTag2.Items.AddRange(new object[] {
+            "Fun",
+            "Roleplay",
+            "Scenic",
+            "Movie",
+            "Realism",
+            "Cartoon",
+            "Water",
+            "Comic",
+            "Build"});
+            this.cboxTag2.Location = new System.Drawing.Point(400, 313);
+            this.cboxTag2.Name = "cboxTag2";
+            this.cboxTag2.Size = new System.Drawing.Size(186, 21);
+            this.cboxTag2.TabIndex = 12;
             // 
             // AddonJsonUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cboxTag2);
+            this.Controls.Add(this.cboxTag1);
+            this.Controls.Add(this.radEntity);
             this.Controls.Add(this.btnClearInput);
             this.Controls.Add(this.btnGenerateFile);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.lblAddonTags);
-            this.Controls.Add(this.txtAddonTags);
             this.Controls.Add(this.lblChangeNotes);
             this.Controls.Add(this.txtTaskNotes);
             this.Controls.Add(this.label1);
@@ -388,9 +435,11 @@ namespace GarrysModWorkshopUtil
         private System.Windows.Forms.Label lblChangeNotes;
         private System.Windows.Forms.TextBox txtTaskNotes;
         private System.Windows.Forms.Label lblAddonTags;
-        private System.Windows.Forms.TextBox txtAddonTags;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Button btnGenerateFile;
         private System.Windows.Forms.Button btnClearInput;
+        private System.Windows.Forms.RadioButton radEntity;
+        private System.Windows.Forms.ComboBox cboxTag1;
+        private System.Windows.Forms.ComboBox cboxTag2;
     }
 }

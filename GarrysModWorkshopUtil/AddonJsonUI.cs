@@ -30,6 +30,8 @@ namespace GarrysModWorkshopUtil
         private void AddonJsonUI_Load(object sender, EventArgs e)
         {
             radServerContent.Checked = true;
+            cboxTag1.SelectedIndex = 0;
+            cboxTag2.SelectedIndex = 0;
             windowIsOpen = true;
             loadInput();
         }
@@ -101,76 +103,30 @@ namespace GarrysModWorkshopUtil
                     }
                 }
 
-                if (txtAddonTags.Text.Equals("") || !txtAddonTags.Text.Contains(","))
+                String addonTag1 = cboxTag1.SelectedItem.ToString().ToLower();
+                String addonTag2 = cboxTag2.SelectedItem.ToString().ToLower();
+
+                if (!addonTag1.Equals(addonTag2))
                 {
-                    MessageBox.Show("Please enter 2 addon tags!", "Error");
+                    ArrayList cards = new ArrayList();
+                    foreach (string card in wildcards)
+                    {
+                        cards.Add(card.ToLower());
+                    }
+
+                    String changeNotes = "";
+                    if (!(txtTaskNotes.Text.Equals("")))
+                    {
+                        changeNotes = " - " + txtTaskNotes.Text;
+                    }
+                    Task jsonTask = new Task(txtDirectoryOfJSon.Text, txtAddonTitle.Text, addonTag1, addonTag2, addonType, cards, changeNotes);
+                    sendBackToMain.lstQueue.Items.Add(jsonTask);
+                    sendBackToMain.allTasks.Add(jsonTask);
+                    sendBackToMain.tasks.Add(jsonTask);
+                    return;
                 }
-                else
-                {
-                    String addonTagFormatter = Regex.Replace(txtAddonTags.Text, @"\s+", String.Empty);
-                    string[] tags = addonTagFormatter.Split(',');
-                    String addonTag1 = tags[0].ToLower();
-                    String addonTag2 = tags[1].ToLower();
-                    bool firstTagValid = false;
 
-                    foreach (string tag in addonTags)
-                    {
-                        if (addonTag1.Equals(tag))
-                        {
-                            firstTagValid = true;
-                            break;
-                        }
-                    }
-
-                    if (firstTagValid == false)
-                    {
-                        MessageBox.Show("Enter a valid first tag for addon.json!", "Error");
-                    }
-
-                    else
-                    {
-                        if (addonTag2.Equals(addonTag1))
-                        {
-                            MessageBox.Show("Enter another second tag for addon.json! (not the same one twice)", "Error");
-                        }
-                        else
-                        {
-
-                        }
-                        bool secondTagValid = false;
-                        foreach (string tag in addonTags)
-                        {
-                            if (addonTag2.Equals(tag))
-                            {
-                                secondTagValid = true;
-                                break;
-                            }
-                        }
-
-                        if (secondTagValid == false)
-                        {
-                            MessageBox.Show("Enter a valid second tag for addon.json!", "Error");
-                        }
-                        else
-                        {
-                            ArrayList cards = new ArrayList();
-                            foreach (string card in wildcards)
-                            {
-                                cards.Add(card);
-                            }
-
-                            String changeNotes = "";
-                            if (!(txtTaskNotes.Text.Equals("")))
-                            {
-                                changeNotes = " - " + txtTaskNotes.Text;
-                            }
-                            Task jsonTask = new Task(txtDirectoryOfJSon.Text, txtAddonTitle.Text, addonTag1, addonTag2, addonType, cards, changeNotes);
-                            sendBackToMain.lstQueue.Items.Add(jsonTask);
-                            sendBackToMain.allTasks.Add(jsonTask);
-                            sendBackToMain.tasks.Add(jsonTask);
-                        }
-                    }
-                }
+                MessageBox.Show("Please do not enter the same tag twice!", "Error");
             }
         }
 
@@ -180,7 +136,7 @@ namespace GarrysModWorkshopUtil
                 "\n\nFor the JSon Output, Press the \"JSon Output\" button and select a destination for the file" +
                 "\n\nFor the Addon Title, type in anything that you want, just do not enclose it in quotes ( Example: \"text\" )" +
                 "\n\nFor the Wildcards, enter in each wildcard and do not enclose in quotes ( Example: *.txt,*png )" +
-                "\n\nFor the Addon Tags, enter them in and do not enclose them in quotes ( Example: fun, realism )" +
+                "\n\nFor the Addon Tags, select the proper tags from the drop-downs, no duplicates!" +
                 "\n\nAlso, the valid addon tags you can have are: \"fun\", \"roleplay\", \"scenic\", \"movie\", \"realism\", \"cartoon\", \"water\", \"comic\", and \"build\"" +
                 "\n\nWhen you are done, press the \"Send Back To Program\" then you can run the task and get your new file!", "Help Page");
         }
@@ -201,105 +157,57 @@ namespace GarrysModWorkshopUtil
             }
             else
             {
-                if (txtAddonTags.Text.Equals("") || !txtAddonTags.Text.Contains(","))
+                String addonTag1 = cboxTag1.SelectedItem.ToString().ToLower();
+                String addonTag2 = cboxTag2.SelectedItem.ToString().ToLower();
+                string[] wildcards = null;
+
+                if (txtWildcards.Text.Equals(""))
                 {
-                    MessageBox.Show("Please enter 2 addon tags!", "Error");
+                    wildcards = new string[1];
+                    wildcards[0] = "";
                 }
                 else
                 {
-                    String addonTagFormatter = Regex.Replace(txtAddonTags.Text, @"\s+", String.Empty);
-                    string[] tags = addonTagFormatter.Split(',');
-                    String addonTag1 = tags[0].ToLower();
-                    String addonTag2 = tags[1].ToLower();
-                    string[] wildcards = null;
+                    String wildCardFormatter = Regex.Replace(txtWildcards.Text, @"\s+", String.Empty);
+                    wildcards = wildCardFormatter.Split(',');
+                }
 
-                    if (txtWildcards.Text.Equals(""))
+                if (!addonTag1.Equals(addonTag2))
+                {
+                    int counter = 0;
+                    StreamWriter scriptWriter = new StreamWriter(txtDirectoryOfJSon.Text + "\\addon.json");
+                    scriptWriter.WriteLine("{");
+                    scriptWriter.WriteLine("\t\"title\": \"" + txtAddonTitle.Text + "\",");
+                    scriptWriter.WriteLine("\t\"type\": \"" + getAddonType() + "\",");
+                    scriptWriter.WriteLine("\t\"tags\": [\"" + addonTag1 + "\", \"" + addonTag2 + "\"],");
+                    scriptWriter.WriteLine("\t\"ignore\":");
+                    scriptWriter.WriteLine("\t[");
+                    if (wildcards.Length == 1 && wildcards[0].Equals(""))
                     {
-                        wildcards = new string[1];
-                        wildcards[0] = "";
+
                     }
                     else
                     {
-                        String wildCardFormatter = Regex.Replace(txtWildcards.Text, @"\s+", String.Empty);
-                        wildcards = wildCardFormatter.Split(',');
-                    }
-
-                    bool firstTagValid = false;
-
-                    foreach (string tag in addonTags)
-                    {
-                        if (addonTag1.Equals(tag))
+                        foreach (String wildcard in wildcards)
                         {
-                            firstTagValid = true;
-                            break;
-                        }
-                    }
-
-                    if (firstTagValid == false)
-                    {
-                        MessageBox.Show("Enter a valid first tag for addon.json!", "Error");
-                    }
-
-                    else
-                    {
-                        if (addonTag2.Equals(addonTag1))
-                        {
-                            MessageBox.Show("Enter another second tag for addon.json! (not the same one twice)", "Error");
-                        }
-                        else
-                        {
-
-                        }
-                        bool secondTagValid = false;
-                        foreach (string tag in addonTags)
-                        {
-                            if (addonTag2.Equals(tag))
+                            if (counter == wildcards.Length - 1)
                             {
-                                secondTagValid = true;
-                                break;
-                            }
-                        }
-
-                        if (secondTagValid == false)
-                        {
-                            MessageBox.Show("Enter a valid second tag for addon.json!", "Error");
-                        }
-                        else
-                        {
-
-                            int counter = 0;
-                            StreamWriter scriptWriter = new StreamWriter(txtDirectoryOfJSon.Text + "\\addon.json");
-                            scriptWriter.WriteLine("{");
-                            scriptWriter.WriteLine("\t\"title\": \"" + txtAddonTitle.Text + "\",");
-                            scriptWriter.WriteLine("\t\"type\": \"" + getAddonType() + "\",");
-                            scriptWriter.WriteLine("\t\"tags\": [\"" + addonTag1 + "\", \"" + addonTag2 + "\"],");
-                            scriptWriter.WriteLine("\t\"ignore\":");
-                            scriptWriter.WriteLine("\t[");
-                            if (wildcards.Length == 1 && wildcards[0].Equals(""))
-                            {
-
+                                scriptWriter.WriteLine("\t\t\"" + wildcard.ToLower() + "\"");
                             }
                             else
                             {
-                                foreach (String wildcard in wildcards)
-                                {
-                                    if (counter == wildcards.Length - 1)
-                                    {
-                                        scriptWriter.WriteLine("\t\t\"" + wildcard + "\"");
-                                    }
-                                    else
-                                    {
-                                        scriptWriter.WriteLine("\t\t\"" + wildcard + "\",");
-                                    }
-                                    counter++;
-                                }
+                                scriptWriter.WriteLine("\t\t\"" + wildcard.ToLower() + "\",");
                             }
-                            scriptWriter.WriteLine("\t]");
-                            scriptWriter.WriteLine("}");
-                            scriptWriter.Close();
+                            counter++;
                         }
                     }
+                    scriptWriter.WriteLine("\t]");
+                    scriptWriter.WriteLine("}");
+                    scriptWriter.Close();
+                    return;
                 }
+
+                MessageBox.Show("Please do not enter the same tag twice!", "Error");
             }
         }
 
@@ -310,7 +218,6 @@ namespace GarrysModWorkshopUtil
             txtAddonTitle.Text = "";
             txtTaskNotes.Text = "";
             txtWildcards.Text = "";
-            txtAddonTags.Text = "";
         }
 
         public String getAddonType()
@@ -352,6 +259,10 @@ namespace GarrysModWorkshopUtil
             {
                 addonType = "model";
             }
+            else if (radEntity.Checked)
+            {
+                addonType = "entity";
+            }
             return addonType;
         }
 
@@ -361,7 +272,8 @@ namespace GarrysModWorkshopUtil
             GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITitle = txtAddonTitle.Text;
             GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIWildcards = txtWildcards.Text;
             GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITaskNotes = txtTaskNotes.Text;
-            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTags = txtAddonTags.Text;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag1 = cboxTag1.SelectedIndex;
+            GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag2 = cboxTag2.SelectedIndex;
 
             if (radServerContent.Checked)
             {
@@ -399,6 +311,10 @@ namespace GarrysModWorkshopUtil
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 8;
             }
+            else if (radEntity.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 9;
+            }
 
             GarrysModWorkshopUtil.Properties.Settings.Default.Save();
         }
@@ -409,7 +325,8 @@ namespace GarrysModWorkshopUtil
             txtAddonTitle.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITitle;
             txtWildcards.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIWildcards;
             txtTaskNotes.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUITaskNotes;
-            txtAddonTags.Text = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTags;
+            cboxTag1.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag1;
+            cboxTag2.SelectedIndex = GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag2;
 
             switch (GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType)
             {
@@ -439,6 +356,9 @@ namespace GarrysModWorkshopUtil
                     break;
                 case 8:
                     radModel.Checked = true;
+                    break;
+                case 9:
+                    radEntity.Checked = true;
                     break;
             }
         }
