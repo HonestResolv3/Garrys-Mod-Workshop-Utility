@@ -27,6 +27,7 @@ namespace GarrysModWorkshopUtil
         string[] Version4Info = {"- Added addon lister", "- Added task history function" ,"- Added search and clear addon list features", "- Added ability to use past task info, view old task info, and permanently delete task info", "- Improved program design", "- Changelog viewing is more organized","- Added ability to select a task to run manually", "- Users can now reload the program to clear memory (if it uses too much)", "- Users can no longer run more than one instance of the program at a time", "- Fixed addon.json second tag being able to be any word", "- Fixed some high number addon ID's not working" ,"- Fixed program appearing below the users screen upon start", "- Fixed potential error with ID's that are 9 digits", "- Fixed dark mode not affecting queue item text color", "- Fixed list boxes not having horizontal scrolling", "- Fixed input boxes not taking \"n\" as an answer to prompts", "- Added another credits to the description"};
         string[] Version45Info = {"- Added addon.json user interface", "- Added presets for program parameters", "- Cleaner appearance for main program", "- Changed about page look, adding the people who tested my program and gave the most feedback", "- Added ability to instantly create an addon.json file if needed", "- Addons will load regardless of which task you are intending to run", "- Addon searching buttons won't load until you load the addons now", "- Fixed \"Clear Search\" function erasing your loaded addons and not loading them again", "- Addon searching is no longer case sensitive", "- Spamming \"Clear Search\" won't mess with future search results anymore", "- Fixed removing counts for items from the queue", "- Task history will no longer show items that have incorrect formats (throws exceptions when running)", "- If an exception is thrown when running a task, now the correct task gets removed", "- Resetting image on about page now replays the images in proper order", "- All drop-down lists cannot be edited anymore"};
         string[] Version451Info = { "- Added \"Entity\" type option for addons", "- Fixed addon tag design, making it simpler to use", "- Wildcards are formatted to lowercase now", "- Selected viewed changelog is saved now"};
+        string[] Version452Info = { "- Added toggle for auto-filling Addon Title based on output folder" };
         string[] Description = { "A program to make publishing to the game Garry's Mod easier", "", "It took 3+ months to get this project to it's current state with lots of challenges and hassles over time", "", "Written in C#, Utilizes: File creation and running, Tasks & Queue Creation, External packages", "", "Has 6 functions, a working queue system, and a working console screen for output!", "", "Huge thanks to Ak47toh, Hidden, and Helios for testing this project!", "", "And best for last, thanks to everyone (and you) for using this program! I really hope you enjoy it!"};
 
         private void AboutPage_Load(object sender, EventArgs e)
@@ -208,6 +209,9 @@ namespace GarrysModWorkshopUtil
                 case 6:
                     loadChangelog(6);
                     break;
+                case 7:
+                    loadChangelog(7);
+                    break;
             }
         }
 
@@ -265,6 +269,13 @@ namespace GarrysModWorkshopUtil
                         lstChangelog.Items.Add(s);
                     }
                     break;
+                case 7:
+                    lstChangelog.Items.Clear();
+                    foreach (String s in Version452Info)
+                    {
+                        lstChangelog.Items.Add(s);
+                    }
+                    break;
             }
         }
 
@@ -292,6 +303,9 @@ namespace GarrysModWorkshopUtil
                     break;
                 case 6:
                     GarrysModWorkshopUtil.Properties.Settings.Default.AboutPageChangeLogVersion = 6;
+                    break;
+                case 7:
+                    GarrysModWorkshopUtil.Properties.Settings.Default.AboutPageChangeLogVersion = 7;
                     break;
             }
             GarrysModWorkshopUtil.Properties.Settings.Default.CurrentImageNumber = pictureBoxValue;
@@ -333,6 +347,9 @@ namespace GarrysModWorkshopUtil
                     break;
                 case 6:
                     cboxChangelogs.SelectedIndex = 6;
+                    break;
+                case 7:
+                    cboxChangelogs.SelectedIndex = 7;
                     break;
             }
         }
