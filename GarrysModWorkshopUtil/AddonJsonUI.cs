@@ -58,11 +58,22 @@ namespace GarrysModWorkshopUtil
 
             findJSonFolder.IsFolderPicker = true;
 
-            if (findJSonFolder.ShowDialog() == CommonFileDialogResult.Ok)
+            try
             {
-                txtDirectoryOfJSon.Text = findJSonFolder.FileName;
-                findJSonFolder = null;
-                GC.Collect();
+                if (findJSonFolder.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    txtDirectoryOfJSon.Text = findJSonFolder.FileName;
+                    if (chkAllowAutofillingTitle.Checked)
+                    {
+                        txtAddonTitle.Text = findJSonFolder.FileName.Substring(findJSonFolder.FileName.LastIndexOf("\\") + 1);
+                    }
+                    findJSonFolder = null;
+                    GC.Collect();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There was an unexpected error when trying to auto-fill the information, is the folder name empty?", "Error");
             }
         }
 
@@ -275,6 +286,15 @@ namespace GarrysModWorkshopUtil
             GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag1 = cboxTag1.SelectedIndex;
             GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonTag2 = cboxTag2.SelectedIndex;
 
+            if (chkAllowAutofillingTitle.Checked)
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AllowAutofillOfTitle = true;
+            }
+            else
+            {
+                GarrysModWorkshopUtil.Properties.Settings.Default.AllowAutofillOfTitle = false;
+            }
+
             if (radServerContent.Checked)
             {
                 GarrysModWorkshopUtil.Properties.Settings.Default.AddonJsonUIAddonType = 0;
@@ -360,6 +380,15 @@ namespace GarrysModWorkshopUtil
                 case 9:
                     radEntity.Checked = true;
                     break;
+            }
+
+            if (GarrysModWorkshopUtil.Properties.Settings.Default.AllowAutofillOfTitle)
+            {
+                chkAllowAutofillingTitle.Checked = true;
+            }
+            else
+            {
+                chkAllowAutofillingTitle.Checked = false;
             }
         }
     }
