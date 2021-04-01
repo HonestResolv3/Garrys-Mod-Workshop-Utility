@@ -4,6 +4,8 @@
 
 A C# based program to make publishing, extracting, and updating easier in Garry's Mod
 
+NOTE: This project  is no longer being worked on as I am re-doing this entire project from scratch, you can find the code to the new version [here](https://github.com/TruthfullyHonest/GMWU)
+
 ![The_Program](https://i.imgur.com/Z9xMB3H.jpg)
 
 Features:
